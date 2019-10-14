@@ -32,7 +32,7 @@ int main(){
     cout << v1[2] << "\n";
     cout << v2[0] << "\n";
     cout << v3[1] << "\n";
-
+    
 
     //2d
     vector<vector<int>> v2d {{1,2},{7,8}};

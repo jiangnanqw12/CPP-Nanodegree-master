@@ -1,41 +1,41 @@
-#include <iostream>
-#include <string>
-#include <vector>
-using std::cout;
-using std::string;
-using std::vector;
-
+#include<iostream>
+#include<vector>
+#include<string>
 #include<fstream>
-using std::fstream;
+using std::vector;
+using std::string;
 
-// TODO: Add the ReadBoardFile function here.
-void ReadBoardFile(string file_path){
-    fstream board_file(file_path);
-    if(board_file){
-        string line;
-        while(getline(board_file,line)){
-            cout << line << "\n";
-        }
-    }else{
-        cout<< "no such file "<< file_path << "\n";
+void read_data(std::string path)
+{
+  std::fstream boardfile;
+  boardfile.open(path);
+  std::cout<<"ok"<<"\n";
+  if(boardfile)
+  {
+    std::string line;
+    vector<vector<int>> board={};
+    while(getline(boardfile,line))
+    {
+      std::cout<<line<<"\n";
+      //board.push_back(atoi(line));
     }
-
-}
-
-// PrintBoard not used in this exercise
-void PrintBoard(const vector<vector<int>> board) {
-  for (int i = 0; i < board.size(); i++) {
-    for (int j = 0; j < board[i].size(); j++) {
-      cout << board[i][j];
-    }
-    cout << "\n";
+    
+    
   }
+  else
+  {
+    std::cout<<"error"<<"\n";
+  }
+  
+}
+void print_data(std::string path)
+{
+  std::fstream boardfile(path);
+  
 }
 
-int main() {
-  // TODO: Call the ReadBoardFile function here.
-  string file_path = "files/1.board";
-  ReadBoardFile(file_path);
-  // Leave the following line commented out.
-  //PrintBoard(board);
+int main()
+{
+string file_path = "files/1.board";
+read_data(file_path);
 }

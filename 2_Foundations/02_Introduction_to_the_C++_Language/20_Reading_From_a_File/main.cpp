@@ -1,39 +1,39 @@
 #include <iostream>
 #include <string>
-
-//add this for file
+using std::cout;
 #include <fstream>
 
+void file_open_testing()
+{
+std::fstream myfile;
+myfile.open("files/1.board");
+if (myfile)
+{
+    cout<<"1"<<"\n";
+}
+else
+{
+    cout<<"0"<<"\n";
+}
 
-void file_open_testing(){
-    //initial a fstream object
-    //std::fstream my_file;
-    //my_file.open(path)
+}
 
-    //or initial in one line
-    //std::ifstream my_file(path);
-    std::fstream my_file;
-    my_file.open("files/1.board");
+void reading_data_from_stream()
+{
 
-    //this instance my_file can use as boolean to check is the file exist or not
-    if (my_file){
-        std::cout << "we have this file" << "\n";
-    }else{
-        std::cout << "we DON'T have this file" << "\n";
+    std::fstream myfile("files/1.board");
+    std::string line;
+    while(std::getline(myfile,line))
+    {
+        cout<<line<<"\n";
     }
+    
 }
 
 
-void reading_data_from_stream(){
-    std::fstream my_file("files/1.board");
-    if(my_file){
-        std::cout << "The file stream has been created!" << "\n";
-        std::string line;
-        while (getline(my_file, line)){
-            std::cout << line << "\n";
-        }
-    }
-}
+
+
+   
 
 
 

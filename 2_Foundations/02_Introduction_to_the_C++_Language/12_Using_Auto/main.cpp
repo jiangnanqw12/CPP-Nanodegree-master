@@ -18,6 +18,12 @@ int main() {
         cout << i << " ";
     }
     cout << "\n";
+    auto test={1,3,5,7,9};
+    for (auto i:test)
+    {
+        cout<<i;
+    }
+    cout << "\n";
 }
 
 /*

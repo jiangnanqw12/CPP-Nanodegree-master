@@ -14,34 +14,26 @@ using std::istringstream;
 // TODO: Add the ParseLine function here.
 vector<int> ParseLine(string line){
 
-    vector<int> lineV;
-    int a;
-    char b;
-    istringstream mystream(line);
-    while(mystream>>a>>b)
-    {
-      lineV.push_back(a);
-      //cout<<a<<" _ ";
+    vector<int> rst;
+    istringstream myrerader(line);
+    char c;
+    int n;
+    while(myrerader>>n>>c){
+        rst.push_back(n);
     }
-  return lineV;
+
+    return rst;
 }
 
 
-vector<vector<int>> ReadBoardFile(string path) {
+void ReadBoardFile(string path) {
   ifstream myfile (path);
-  string line;
-  vector<int> lineV;
-  vector<vector<int>> board;
   if (myfile) {
-    
+    string line;
     while (getline(myfile, line)) {
       cout << line << "\n";
-      lineV=ParseLine(line);
-      board.push_back(lineV);
     }
   }
-  
-  return board;
 }
 
 void PrintBoard(const vector<vector<int>> board) {
@@ -59,6 +51,5 @@ int main() {
   ReadBoardFile("1.board");
   TestParseLine(); // For testing.
   // Leave commented out.
-  
-  PrintBoard(ReadBoardFile("1.board"));
+  // PrintBoard(board);
 }

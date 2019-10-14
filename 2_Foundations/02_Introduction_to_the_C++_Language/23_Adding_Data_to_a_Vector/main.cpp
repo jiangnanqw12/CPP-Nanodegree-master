@@ -20,7 +20,7 @@ using std::cout;
 int main() {
     // Initial Vector
     //vector<int> v {1, 2, 3};
-    vector v {1, 2, 3}; //works only on c++17 without vector type
+    vector<int> v {1, 2, 3}; //works only on c++17 without vector type
 
     // Print the contents of the vector
     for (int i=0; i < v.size(); i++) {

@@ -23,13 +23,14 @@ Execute the following code to see how this works:
 /////////////////////////
 
 
-#include<iostream>
-#include<string>
-#include<sstream>
+#include <iostream>
+#include <string>
+#include <sstream>
 
+using std::cout;
 using std::string;
-using std:: cout;
 using std::istringstream;
+
 
 /*
 myreader is a pointer, whith point to the contain of string.
@@ -41,46 +42,48 @@ every time you extract a contain, the myrerader will move right to next contain.
 
 
 void istringstream_test(){
-    cout<< __func__ <<"\n";
+    cout << __func__<< "\n";
+
     string a("1 2 3");
-    int data;
-    istringstream mystream(a);
-    mystream>>data;
-    cout<<data;
+
+    istringstream my_stream(a);
+
+    int n;
+    my_stream >> n;
+    cout << n << "\n";
 }
 
 
 void use_isstringstream_as_boolen_read_all(){
-    cout<<__func__<<"\n";
-    string a="1 2 3";
-    int data;
-    istringstream mystream(a);
-    while(mystream)
-    {
-        mystream>>data;
-        //cout<<data<<"\n";
-        if(mystream)
-        {
-            cout<<"success: "<<data<<"\n";
+    cout << __func__<< "\n";
+
+    string a("1 2 3");
+
+    istringstream my_stream(a);
+
+    int n;
+    
+    // Testing to see if the stream was successful and printing results.
+    while (my_stream) {
+        my_stream >> n;
+        if (my_stream) {
+            cout << "That stream was successful: " << n << "\n";
         }
-        else
-        {
-            cout<<"fail or end\n";
+        else {
+            cout << "That stream was NOT successful!" << "\n";            
         }
-        
     }
 }
 
 void common_way_to_use_istringstream_in_while(){
-    cout<<__func__<<"\n";
-    string a="1 2 3";
-    int data;
-    istringstream mystream(a);
-    while(mystream>>data)
-    {
-        cout<<"success: "<<data<<"\n";
+    cout << __func__<< "\n";
+
+    istringstream myreader("1 2 3");
+    int n;
+    while(myreader>>n){
+        cout << "read: "<< n << "\n";
     }
-    cout<<"fail or end\n";
+    cout << "The stream has failed or ended." << "\n";
 }
 
 
@@ -99,6 +102,7 @@ the type char is used, which is a type that can hold only a single ASCII charact
     string b("1,2,3,4,6q7p8o9");
 
     istringstream mixstring(b);
+
     //need two type of tmp value
     char c;
     int n;
@@ -112,11 +116,10 @@ the type char is used, which is a type that can hold only a single ASCII charact
         Since there was no char after the 9, the stream
         failed and the while loop exited.
     */
-    while(mixstring>>n>>c)
-    {
-        cout<<"int: "<<n<<" ";
-        cout<<"char: "<<c<<"\n";
+    while(mixstring >> n >> c){
+        cout << "read int: "<< n << ", read char: " << c << "\n";
     }
+    cout << "The stream has failed or ended." << "\n";
 }
 
 
