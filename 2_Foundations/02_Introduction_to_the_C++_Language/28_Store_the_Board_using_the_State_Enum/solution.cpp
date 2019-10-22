@@ -15,59 +15,52 @@ enum class State {kEmpty, kObstacle};
 // explicitly indicate vector<State>
 vector<State> ParseLine(string line) {
     istringstream sline(line);
+    int n;
+    char c;
     // TODO: Change the variable type for row
     // to be a vector<State>
     vector<State> row;
-    int a;
-    char b;
+    State curstate;
+    while (sline >> n >> c && c == ',') {
       // TODO: Modify the line below to push_back
       // a State::kEmpty if n is 0, and push_back
       // a State::kObstacle otherwise.
-    while(sline>>a>>b && b== ',')
-    {
-      
-      
-      if (a==0)
-      {
-        row.push_back(State::kEmpty);
+      if (n==0){
+          curstate = State::kEmpty;
+      }else if(n==1){
+          curstate = State::kObstacle;
       }
-      else
-      {
-        row.push_back(State::kObstacle);
-      }
-      
+
+      row.push_back(curstate);
     }
     return row;
-    
 }
 
 // TODO: Modify the return type here as well. Just
 // as above, the board will contain State objects
 // instead of ints.
 vector<vector<State>> ReadBoardFile(string path) {
-  ifstream myfile(path);
-  string line;
-  vector<State> row;
-  vector<vector<State>> board;
+  ifstream myfile (path);
   // TODO: Modify the board declarationto store
   // State objects instead of ints.
-  while(getline(myfile,line))
-  {
-  row=ParseLine(line);
-  board.push_back(row);
+  vector<vector<State>> board{};
+  if (myfile) {
+    string line;
+    while (getline(myfile, line)) {
+      // TODO: Modify the row type to use State
+      // objects instead of ints.
+      vector<State> row = ParseLine(line);
+      board.push_back(row);
+    }
   }
   return board;
-   
 }
 
 string CellString(State cell) {
-  switch(cell)
-  {
-  case State::kEmpty:
-  return "0   ";
-  case State::kObstacle:
-  //return "⛰️   ";
-  return "T   ";
+  switch(cell) {
+    case State::kObstacle: return "⛰️   ";
+    case State::kEmpty: return "0   ";
+    //default: return "0   ";
   }
 }
 
@@ -85,6 +78,4 @@ void PrintBoard(const vector<vector<State>> board) {
 int main() {
   auto board = ReadBoardFile("1.board");
   PrintBoard(board);
-  
-  
 }

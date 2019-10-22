@@ -46,15 +46,18 @@ unscoped enums (only remove the class/sturcture from scoped enums)
 void scoped_enum(){
     // Create the enum Color with fixed values.
     // scoped enum
-    enum class color{red,blue,green};
-    
+    enum class Color {white,
+                      black,
+                      blue,
+                      red};
+
     // Create a Color variable and set it to Color::blue.
-    color my_color=color::blue;
+    Color my_color;
     //assign
-    
+    my_color = Color::blue;
 
     // Test to see if my car is red.
-    if (my_color == color::red) {
+    if (my_color == Color::red) {
         cout << "The color of my car is red!" << "\n";
     } else {
         cout << "The color of my car is not red." << "\n";
@@ -63,8 +66,12 @@ void scoped_enum(){
 
 void unscoped_enum(){
 
-    enum Color{red,blue,green};
-    Color my_color=green;
+    enum Color {  white =0,
+                  black,
+                  blue,
+                  red};
+
+    Color my_color = blue;
     cout << my_color << "\n";
     // Test to see if my car is red.
     if (my_color == red) {
@@ -76,7 +83,7 @@ void unscoped_enum(){
 
 void enum_switch(){
 
-    enum class keypad{up,down,left,right};
+    enum class keypad {up,down,left,right};
 
     keypad input;
     input = keypad::down;

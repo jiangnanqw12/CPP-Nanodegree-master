@@ -14,28 +14,30 @@ with enumerator values kEmpty and kObstacle. In this exercise,
 you will write a CellString function which converts each State to an appropriate string.
 In the next exercise, we will update the program to use the enum values and CellString function.
 */
-#include<iostream>
-#include<vector>
-#include<fstream>
-#include<sstream>
-using std::vector;
-using std::string;
+
+
+#include <fstream>
+#include <iostream>
+#include <sstream>
+#include <string>
+#include <vector>
+using std::cout;
 using std::ifstream;
 using std::istringstream;
-using std::cout;
+using std::string;
+using std::vector;
 
-enum class State{kEmpty, kObstacle};
+enum class State {kEmpty, kObstacle};
 
 vector<int> ParseLine(string line) {
-    istringstream line_s(line);
-    int a;
-    char b;
-    vector<int> data;
-    while(line_s>>a>>b)
-    {
-      data.push_back(a);
+    istringstream sline(line);
+    int n;
+    char c;
+    vector<int> row;
+    while (sline >> n >> c && c == ',') {
+      row.push_back(n);
     }
-    return data;
+    return row;
 }
 
 vector<vector<int>> ReadBoardFile(string path) {
@@ -57,17 +59,11 @@ vector<vector<int>> ReadBoardFile(string path) {
 // "0   "
 string CellString(State cell){
 
-    switch (cell)
-    {
-    case State::kEmpty:
-      return "0   ";
-      break;
-    case State::kObstacle:
-      return "⛰️   ";
-      break;
-    
-    default:
-      break;
+    switch(cell){
+        case State::kEmpty:
+                return "0   ";
+        case State::kObstacle:
+                return "⛰️   ";
     }
 
 }
@@ -76,17 +72,7 @@ string CellString(State cell){
 void PrintBoard(const vector<vector<int>> board) {
   for (int i = 0; i < board.size(); i++) {
     for (int j = 0; j < board[i].size(); j++) {
-      //cout << board[i][j];
-      State cell;
-      if(board[i][j]==0)
-      {
-        cell=State::kEmpty;
-      }
-      else
-      {
-        cell=State::kObstacle;
-      }
-      cout<<CellString(cell);
+      cout << board[i][j];
     }
     cout << "\n";
   }

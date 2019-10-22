@@ -1,46 +1,42 @@
-#include<iostream>
-#include<string>
-#include<fstream>
-#include<sstream>
-#include<vector>
+#include <fstream>
+#include <iostream>
+#include <sstream>
+#include <string>
+#include <vector>
 using std::cout;
+using std::ifstream;
+using std::istringstream;
 using std::string;
 using std::vector;
-using std::istringstream;
-using std::ifstream;
 
-enum class State {kEmpty,kObstacle};
+enum class State {kEmpty, kObstacle};
 
 
- vector<State> ParseLine(string line) {
+vector<State> ParseLine(string line) {
     istringstream sline(line);
+    int n;
+    char c;
     vector<State> row;
-    int a;
-    char b;
-    while (sline>>a>>b && b==',')
-    {
-      if (a==0)
-      {
-      row.push_back(State::kEmpty);
-      }
-      else
-      {
+    while (sline >> n >> c && c == ',') {
+      if (n == 0) {
+        row.push_back(State::kEmpty);
+      } else {
         row.push_back(State::kObstacle);
       }
-      
     }
-    
     return row;
 }
 
 
- vector<vector<State>> ReadBoardFile(string path) {
-  ifstream myfile(path);
-  string line;
-  vector<vector<State>> board;
-  while(getline(myfile,line))
-  {
-    board.push_back(ParseLine(line));
+vector<vector<State>> ReadBoardFile(string path) {
+  ifstream myfile (path);
+  vector<vector<State>> board{};
+  if (myfile) {
+    string line;
+    while (getline(myfile, line)) {
+      vector<State> row = ParseLine(line);
+      board.push_back(row);
+    }
   }
   return board;
 }
@@ -48,7 +44,7 @@ enum class State {kEmpty,kObstacle};
 // TODO: Write the Heuristic function here.
 // Calculate the manhattan distance
 int Heuristic(int x1,int y1,int x2,int y2){
-  return abs(x1-x2)+abs(y1-y2);
+  return abs(x1-x2) + abs(y1-y2);
 }
 
 /**

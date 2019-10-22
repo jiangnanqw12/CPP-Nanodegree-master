@@ -69,9 +69,9 @@ Search( grid, initial_point, goal_point ) :
 */
 vector<vector<State>> Search(vector<vector<State>> grid,int initial_point[2], int goal_point[2] ){
 
-    cout<<"no path foud";
+    cout << "No path found!" << "\n";
+    return vector<vector<State>> {};
 
-  return vector<vector<State>> {};
 }
 
 
@@ -95,15 +95,13 @@ void PrintBoard(const vector<vector<State>> board) {
 
 
 int main() {
-  // TODO: Declare 2D "init" and "goal" arrays with values {0, 0} and {4, 5} respectively. vector<vector<State>> Search(vector<vector<State>> grid,int initial_point[2], int goal_point[2] )
-  int init[2]{0,0};
-  int goal[2]{4,5};
+  // TODO: Declare 2D "init" and "goal" arrays with values {0, 0} and {4, 5} respectively.
+  int init_point[2] {0,0};
+  int goal_point[2] {4,5};
 
- 
-  auto board=ReadBoardFile("1.board");
+  auto board = ReadBoardFile("1.board");
   // TODO: Call Search with "board", "init", and "goal". Store the results in the variable "solution".
-  
-  auto solution =Search( board, init, goal );
+  auto solution = Search(board, init_point, goal_point);
   // TODO: Change the following line to pass "solution" to PrintBoard.
   PrintBoard(solution);
 }
