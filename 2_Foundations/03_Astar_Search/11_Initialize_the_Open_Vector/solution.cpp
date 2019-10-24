@@ -52,10 +52,10 @@ int Heuristic(int x1, int y1, int x2, int y2) {
 /**
  * Add a node to the open list and mark it as open.
  */
-void AddToOpen(int x,int y,int g,int h,vector<vector<int>> &openlist,vector<vector<State>> &grid) {
+void AddToOpen(int x, int y, int g, int h, vector<vector<int>> &openlist, vector<vector<State>> &grid) {
   // Add node to open vector, and mark grid cell as closed.
-  openlist.push_back(vector<int> {x,y,g,h});
-  grid[x][y]=State::kClosed;
+  openlist.push_back(vector<int>{x, y, g, h});
+  grid[x][y] = State::kClosed;
 }
 
 
@@ -64,14 +64,14 @@ void AddToOpen(int x,int y,int g,int h,vector<vector<int>> &openlist,vector<vect
  */
 vector<vector<State>> Search(vector<vector<State>> grid, int init[2], int goal[2]) {
   // Create the vector of open nodes.
-  vector<vector<int>> open;
+  vector<vector<int>> open {};
 
   // TODO: Initialize the starting node.
-  int x=init[0];
-  int y=init[1];
-  int g=0;
-  int h=Heuristic(x,y,goal[0],goal[1]);
-  //vector<vector<State>> grid;
+  int x = init[0];
+  int y = init[1];
+  int g = 0;
+  int h = Heuristic(x,y,goal[0],goal[1]);
+
   // TODO: Use AddToOpen to add the starting node to the open vector.
   // We immediately treat the init node as the first open node
   AddToOpen(x,y,g,h,open,grid);

@@ -1,3 +1,6 @@
+#include <algorithm>  // for sort
+using std::sort;
+
 #include <fstream>
 #include <iostream>
 #include <sstream>
@@ -10,7 +13,7 @@ using std::string;
 using std::vector;
 using std::abs;
 
-enum class State {kEmpty, kObstacle, kClosed};
+enum class State {kEmpty, kObstacle, kClosed, kPath};
 
 
 vector<State> ParseLine(string line) {
@@ -42,12 +45,24 @@ vector<vector<State>> ReadBoardFile(string path) {
   return board;
 }
 
-// TODO: Write function to compare the f-value of two nodes here
-//It should return a boolean true if the f-value of the first argument is greater than the f-value of the second,
-bool Compare(vector<int> &node1, vector<int> &node2){
 
-    return (node1[2]+node1[3])>(node2[2]+node2[3]);
+/**
+ * Compare the F values of two cells.
+ */
+bool Compare(const vector<int> a, const vector<int> b) {
+  int f1 = a[2] + a[3]; // f1 = g1 + h1
+  int f2 = b[2] + b[3]; // f2 = g2 + h2
+  return f1 > f2;
 }
+
+
+/**
+ * Sort the two-dimensional vector of ints in descending order.
+ */
+void CellSort(vector<vector<int>> *v) {
+  sort(v->begin(), v->end(), Compare);
+}
+
 
 // Calculate the manhattan distance
 int Heuristic(int x1, int y1, int x2, int y2) {
@@ -78,14 +93,51 @@ vector<vector<State>> Search(vector<vector<State>> grid, int init[2], int goal[2
   int g = 0;
   int h = Heuristic(x, y, goal[0],goal[1]);
   AddToOpen(x, y, g, h, open, grid);
+  /*
+  // TODO: while open vector is non empty {
+    // TODO: Sort the open list using CellSort, and get the current node.
 
+    // TODO: Get the x and y values from the current node,
+    // and set grid[x][y] to kPath.
+
+    // TODO: Check if you've reached the goal. If so, return grid.
+
+
+    // If we're not done, expand search to current node's neighbors. This step will be completed in a later quiz.
+    // ExpandNeighbors
+
+  //} // TODO: End while loop
+  */
+
+  while (open.size()>0){
+      //sort all open list by f value
+      CellSort(&open);
+      //get the min f value node, the node is where we will go
+      //because the Compare get the decending order , the lastest node is the min-f node
+      vector<int> curminfnode = open.back();;
+      open.pop_back();
+      int curx = curminfnode[0];
+      int cury = curminfnode[1];
+      grid[curx][cury] = State::kPath;
+
+      if (curx == goal[0] && cury == goal[1])
+        return grid;
+
+        // If we're not done, expand search to current node's neighbors.
+        // ExpandNeighbors
+
+  }
+
+  // We've run out of new nodes to explore and haven't found a path.
   cout << "No path found!" << "\n";
   return std::vector<vector<State>>{};
 }
 
+
 string CellString(State cell) {
   switch(cell) {
     case State::kObstacle: return "⛰️   ";
+    case State::kPath: return "⛰️   ";
     default: return "0   ";
   }
 }
@@ -112,4 +164,5 @@ int main() {
   TestHeuristic();
   TestAddToOpen();
   TestCompare();
+  TestSearch();
 }
