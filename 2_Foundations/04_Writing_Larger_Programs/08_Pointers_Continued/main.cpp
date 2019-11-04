@@ -39,7 +39,8 @@ void pointers_to_objects(){
     }
     // Dereference your pointer to v and print the int at index 0 here (note: you should print 1):
     cout << "The first element of v is: " << (*pointer_to_v)[0] << "\n";
-
+    pointer_to_v++;
+    cout << "The test is: " << (*pointer_to_v)[1] << "\n";
 }
 
 

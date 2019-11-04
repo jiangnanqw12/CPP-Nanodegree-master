@@ -142,36 +142,34 @@ reference of ...
     the grid, and
     an int array for the goal coordinates.
 */
-void ExpandNeighbors(vector<int> &current_node, int *goal, vector<vector<int>> &openlist,vector<vector<State>> &grid){
+void ExpandNeighbors(vector<int> &current_node, int *goal, vector<vector<int>> &open, vector<vector<State>> &grid)
+{
 
-    //Get current node's data.
-    int curx = current_node[0];
-    int cury = current_node[1];
-    int curg = current_node[2];
-    int curh = current_node[3];
-    int newg = curg+1;
-    cout << __func__ << ", cru x:"<<curx<<", cur y:"<<cury<<"\n";
-    //Loop through current node's potential neighbors.
-    for(int i = 0; i < 4; i++){
+  //Get current node's data.
+  int curx = current_node[0];
+  int cury = current_node[1];
+  int curg = current_node[2];
+  int curh = current_node[3];
+  int newg = curg + 1;
+  cout << __func__ << ", cru x:" << curx << ", cur y:" << cury << "\n";
+  //Loop through current node's potential neighbors.
+  for (int i = 0; i < 4; i++)
+  {
+    int poetential_x = curx + delta[i][0];
+    int poetential_y = cury + delta[i][1];
 
-        int poetential_x = curx +  delta[i][0];
-        int poetential_y = cury +  delta[i][1];
-
-        //Check that the potential neighbor's x2 and y2 values are on the grid and not closed.
-        // if the point is State::kEmpty (which means not kObstcal, kPath)
-        if (CheckValidCell(poetential_x, poetential_y, grid)){
-            //Increment g value, compute h value, and add neighbor to open list
-            //for future use.
-            int newh =Heuristic(poetential_x,poetential_y,goal[0],goal[1]);
-            cout<< poetential_x<<poetential_y<<goal[0]<<goal[1]<<newg<<newh<<"\n";
-            AddToOpen(poetential_x, poetential_y, newg, newh, openlist, grid);
-
-        }
+    //Check that the potential neighbor's x2 and y2 values are on the grid and not closed.
+    // if the point is State::kEmpty (which means not kObstcal, kPath)
+    if (CheckValidCell(poetential_x, poetential_y, grid))
+    {
+      //Increment g value, compute h value, and add neighbor to open list
+      //for future use.
+      int new_h=abs(poetential_x-goal[0])+abs(poetential_y-goal[1]);
+      cout<< poetential_x<<poetential_y<<goal[0]<<goal[1]<<newg<<new_h<<"\n";
+      AddToOpen(poetential_x,poetential_y,newg,new_h,open,grid);
     }
-
+  }
 }
-
-
 
 /**
  * Implementation of A* search algorithm
@@ -213,8 +211,8 @@ vector<vector<State>> Search(vector<vector<State>> grid, int init[2], int goal[2
 
 string CellString(State cell) {
   switch(cell) {
-    case State::kObstacle: return "⛰️   ";
-    case State::kPath: return "⛰️   ";
+    case State::kObstacle: return "O   ";
+    case State::kPath: return "P   ";
     case State::kEmpty: return "E   ";
     case State::kClosed: return "C   ";
     default: return "?   ";

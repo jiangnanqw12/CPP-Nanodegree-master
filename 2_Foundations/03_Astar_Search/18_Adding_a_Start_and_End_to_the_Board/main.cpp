@@ -148,9 +148,8 @@ vector<vector<State>> Search(vector<vector<State>> grid, int init[2], int goal[2
     if (x == goal[0] && y == goal[1]) {
       // TODO: Set the init grid cell to kStart, and
       // set the goal grid cell to kFinish before returning the grid.
-      grid[init[0]][init[1]] = State::kStart;
-      grid[goal[0]][goal[1]] = State::kFinish;
-
+      grid[init[0]][init[1]]=State::kStart;
+      grid[goal[0]][goal[1]]=State::kFinish;
       return grid;
     }
 
@@ -166,12 +165,12 @@ vector<vector<State>> Search(vector<vector<State>> grid, int init[2], int goal[2
 
 string CellString(State cell) {
   switch(cell) {
-      case State::kObstacle: return "⛰️   ";
-      case State::kPath: return "🚗   ";
+      case State::kObstacle: return "O   ";
+      case State::kPath: return "P   ";
       case State::kEmpty: return "E   ";
       case State::kClosed: return "C   ";
-      case State::kStart: return "🚦   ";
-      case State::kFinish: return "🏁   ";
+      case State::kStart: return "S   ";
+      case State::kFinish: return "F   ";
       default: return "?   ";
     // TODO: Add cases to return "🚦   " for kStart
     // and "🏁   " for kFinish.

@@ -71,7 +71,7 @@ int Heuristic(int x1, int y1, int x2, int y2) {
 
 // TODO: Write CheckValidCell here. Check that the
 // cell is on the grid and not an obstacle (i.e. equals kEmpty).
-bool CheckValidCell(int x, int y,vector<vector<State>> &grid){
+bool CheckValidCell(int x,int y, vector<vector<State>> grid ){
 
 /*
 1.Check that the (x, y) coordinate pair is on the grid.
@@ -79,14 +79,15 @@ bool CheckValidCell(int x, int y,vector<vector<State>> &grid){
 
 If both of these conditions are true, then CheckValidCell should return true. Otherwise, it should return false.
 */
-
-  if ( x>=0 && x < grid.size() && y >=0 && y<grid[0].size() ){
-      if (State::kEmpty == grid[x][y]){
-          return true;
-      }
+if (x>=0&&x<grid.size()&&y>=0&&y<grid[0].size())
+{
+  if(grid[x][y]==State::kEmpty)
+  {
+    return true;
   }
+}
+return false;
   
-  return false;
 }
 
 /**

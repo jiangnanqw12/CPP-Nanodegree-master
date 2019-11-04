@@ -8,7 +8,9 @@ In the previous concept, you saw some example code that wouldn't compile because
 #include <vector>
 using std::vector;
 using std::cout;
+int IncrementAndComputeVectorSum(vector<int> v);
 
+void AddOneToEach(vector<int> &v);
 
 int IncrementAndComputeVectorSum(vector<int> v) {
     int total = 0;

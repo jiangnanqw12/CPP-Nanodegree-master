@@ -59,8 +59,8 @@ bool Compare(const vector<int> a, const vector<int> b) {
 /**
  * Sort the two-dimensional vector of ints in descending order.
  */
-void CellSort(vector<vector<int>> *v) {
-  sort(v->begin(), v->end(), Compare);
+void CellSort(vector<vector<int>> &v) {
+  sort((&v)->begin(),(&v)->end(),Compare);
 }
 
 
@@ -111,20 +111,16 @@ vector<vector<State>> Search(vector<vector<State>> grid, int init[2], int goal[2
 
   while (open.size()>0){
       //sort all open list by f value
-      CellSort(&open);
+      CellSort(open);
       //get the min f value node, the node is where we will go
       //because the Compare get the decending order , the lastest node is the min-f node
-      vector<int> curminfnode = open.back();;
+      vector<int> fmin=open.back();
       open.pop_back();
-      int curx = curminfnode[0];
-      int cury = curminfnode[1];
-      grid[curx][cury] = State::kPath;
-
-      if (curx == goal[0] && cury == goal[1])
-        return grid;
-
+      grid[fmin[0]][fmin[1]]=State::kPath;
         // If we're not done, expand search to current node's neighbors.
         // ExpandNeighbors
+        if (fmin[0]==goal[0]&&fmin[1]==goal[1])
+        return grid;
 
   }
 
