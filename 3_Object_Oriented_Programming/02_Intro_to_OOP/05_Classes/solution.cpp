@@ -7,12 +7,13 @@ class Date {
         int month;
         int year;
 
+
         //In the class definition, we've also added the line public:, which is an "access modifier".
 
     //private
-    
+    public:
         // Declare member setter function
-        void SetDate(int day,int month,int year);
+        void SetDate(int day, int month, int year);
 };
 
 // Define the SetDate() function
