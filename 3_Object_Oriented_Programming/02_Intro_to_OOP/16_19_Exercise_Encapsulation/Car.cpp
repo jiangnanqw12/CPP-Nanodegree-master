@@ -1,4 +1,6 @@
 #include<iostream>
+#include<string>
+#include<cstring>
 
 class Car
 {
@@ -26,9 +28,10 @@ void Car::set_weight(int weight)
     Car::weight=weight;
 }
 
-void set_brand(std::string brand)
+void Car::set_brand(std::string brand)
 {
-    
+    Car::brand =new char[brand.length()+1];
+    strcpy(Car::brand,brand.c_str());
 }
 int Car::get_power() const
 {
@@ -38,6 +41,15 @@ int Car::get_weight() const
 {
     return Car::weight;
 }
-std::string get_brand() const{
-    retun ;
+std::string Car::get_brand() const{
+    std::string brand_name="brand_name: ";
+    brand_name+=Car::brand;
+    return brand_name;
+}
+
+// Test in main()
+int main() {
+    Car car;
+    car.set_brand("peugeot");
+    std::cout << car.get_brand() << "\n";
 }
