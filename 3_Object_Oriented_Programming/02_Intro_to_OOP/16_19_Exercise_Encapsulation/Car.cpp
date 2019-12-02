@@ -16,10 +16,28 @@ public:
     std::string get_brand() const;
 };
 
-Car::Car(/* args */)
+void Car::set_power(int horsepower)
 {
+    Car::horsepower=horsepower;
 }
 
-Car::~Car()
+void Car::set_weight(int weight)
 {
+    Car::weight=weight;
+}
+
+void set_brand(std::string brand)
+{
+    
+}
+int Car::get_power() const
+{
+    return Car::horsepower;
+}
+int Car::get_weight() const
+{
+    return Car::weight;
+}
+std::string get_brand() const{
+    retun ;
 }
