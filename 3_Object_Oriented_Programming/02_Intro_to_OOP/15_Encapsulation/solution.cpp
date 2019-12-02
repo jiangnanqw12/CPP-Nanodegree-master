@@ -14,21 +14,27 @@ Then see if you can clean them up! Scroll down to see a solution if you get stuc
 
 class Encapsulation
 {
-  private:
-  int x; // data encapsulated (hidden) within the class
+private:
+  // data hidden from outside world
+  int x;
 
-  public:
-  void Set(int a) // interface to set the value of variable x
+public: // <- error 1 was here
+  // function to set value of
+  // variable x
+  void Set(int a)
   {
-    x = a;
+    x = a; // <- error 2 was here
   }
 
-  int Get() // interface to get the value of variable x
+  // function to return value of
+  // variable x
+  int Get()
   {
     return x;
-  }
+  } // <- error 3 was here
 };
 
+// main function
 int main()
 {
   Encapsulation obj;
