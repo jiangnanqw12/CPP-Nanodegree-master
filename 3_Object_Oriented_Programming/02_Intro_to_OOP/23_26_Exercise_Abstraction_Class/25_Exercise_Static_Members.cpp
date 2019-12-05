@@ -16,7 +16,7 @@ public:
 private:
     int radius_ {0};
     double volume_ {0};
-    double pi_ = 3.14159; // TODO: Which specifications will work: const, constexpr, and static?
+    static constexpr double  pi_ = 3.14159; // TODO: Which specifications will work: const, constexpr, and static?
     
     void Update_(int radius)
     {
