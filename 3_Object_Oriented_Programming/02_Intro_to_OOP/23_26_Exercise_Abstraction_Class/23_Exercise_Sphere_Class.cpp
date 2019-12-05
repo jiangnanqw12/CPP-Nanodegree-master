@@ -20,7 +20,7 @@ public:
     // Define an accessor for the volume
     double volume() const { return volume_; }
     
-    constexpr double pi = 3.14159;
+    const double pi = 3.14159;
 
 private:
     // Define private attributes
