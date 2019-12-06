@@ -17,6 +17,7 @@ Instructions
 using std::string;
 
 class Vehicle {
+
 public:
     int wheels = 0;
     string color = "blue";
@@ -68,4 +69,5 @@ int main()
     Scooter scooter;
     //scooter.wheels=2;// wheels對 scooter 來說是private 的, 不能直接存取
     scooter.set_wheel(2);
+    Car car2;
 };

@@ -12,24 +12,25 @@ Instructions
 #include <iostream>
 #include <string>
 
+class Vehicle
+{
 
-class Vehicle {
+private:
+    std::string model_name;
+    int mileage = 0;
+    int fuel_capacity = 0;
 
-  private:
-      std::string model_name;
-      int mileage = 0;
-      int fuel_capacity=0;
-
-
-  public:
+public:
     int wheels = 0;
     std::string color = "blue";
-    std::string make  = "generic";
+    std::string make = "generic";
 
-    void get_info() {
-        std::cout << "This is a vehicle!, name: "<< model_name << "\n";
+    void get_info()
+    {
+        std::cout << "This is a vehicle!, name: " << model_name << "\n";
     }
-    void set_name(std::string name){
+    void set_name(std::string name)
+    {
         model_name = name;
     }
 
@@ -37,31 +38,42 @@ class Vehicle {
     {
         std::cout << "This " << color << " " << make << " vehicle has " << wheels << " wheels!\n";
     }
-
-
 };
 
-class Car : public Vehicle {
+class Car : public Vehicle
+{
 public:
-    bool is_cabriolet;//敞篷
+    bool is_cabriolet; //敞篷
 };
 
-class Truck : public Vehicle {
+class Truck : public Vehicle
+{
 public:
     bool has_sleeping_cabin;
 };
 
-class Bicycle : public Vehicle {
+class Bicycle : public Vehicle
+{
 public:
     bool kickstand = true;
 };
 
-class Scooter : public Vehicle {
+class Scooter : public Vehicle
+{
 public:
     bool electric = false;
 };
+class test : public Vehicle
+{
+private:
+    std::string s1 = "s1";
 
-int main() {
+public:
+    bool s2 = true;
+};
+
+int main()
+{
     Car c;
     c.is_cabriolet = true;
     c.set_name("tesla S");
@@ -69,18 +81,17 @@ int main() {
     std::cout << c.is_cabriolet << "\n";
     c.get_info();
 
-
-
     Truck t;
     t.has_sleeping_cabin = false;
     std::cout << t.has_sleeping_cabin << "\n";
     t.set_name("Ford T");
     t.get_info();
 
-
     Scooter scooter;
     scooter.wheels = 2;
     scooter.Print();
-
-
+    test ss;
+    ss.wheels=5;
+    ss.set_name("ss1");
+    ss.get_info();
 };
