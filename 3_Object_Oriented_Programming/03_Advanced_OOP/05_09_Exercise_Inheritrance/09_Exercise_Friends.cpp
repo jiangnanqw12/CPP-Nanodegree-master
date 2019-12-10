@@ -32,7 +32,7 @@ In this exercise you will experiment with friend classes. In the notebook below,
     Add a Rectangle() constructor that takes a Square as an argument.
     Add an Area() function to class Rectangle.
 */
-// Example solution for Rectangle and Square friend classes
+// Example solution for Rectangle and Square friend classeswang
 #include <assert.h>
 #include <iostream>
 // Declare class Rectangle
