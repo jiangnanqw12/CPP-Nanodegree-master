@@ -39,11 +39,29 @@ protected: // 子class 內部可以使用
 
 // Declare derived class Snake
 class Snake:public Animal{
+    public:
     float length;
+    void MakeSound()
+    {
+        std::cout<<"ss"<<std::endl;
+    }
+    Snake(float l):
     
-}
+        length(l),
+        Animal("red","ss1",2)
+    {}
+    
+};
 // Declare derived class Cat
-
+class Cat:public Animal{
+    public:
+    float height;
+    void MakeSound()
+    {
+        std::cout<<"cc"<<std::endl;
+    }
+    Cat(float h):height(h),Animal("blue","c1",3){}
+};
 
 
 // Test in main()
@@ -52,9 +70,9 @@ int main (){
 
 
     Snake mys(100);
-    mys.get_info();
+    mys.MakeSound();
     Cat myc(50);
-    myc.get_info();
+    myc.MakeSound();
 
 
 }
