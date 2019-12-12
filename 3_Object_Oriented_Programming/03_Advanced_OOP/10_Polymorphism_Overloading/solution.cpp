@@ -42,35 +42,23 @@ This example of "class Date" overloads:
 ////////////////////////////
 // 在 class 內 做 overloading
 ////////////////////////////
-#include<ctime>
-#include<iostream>
-class Date{
-    public:
-    Date(int day,int month,int year):day_(day),month_(month),year_(year){}
-    Date(int day,int month):day_(day),month_(month)
+#include <ctime>
+
+class Date {
+public:
+    Date(int day, int month, int year) : day_(day), month_(month), year_(year) {}
+    Date(int day, int month) : day_(day), month_(month)  // automatically sets the Date to the current year
     {
-        time_t t=time(NULL);
-        tm* timePtr=localtime(&t);
-        year_=timePtr->tm_year;
+        time_t t = time(NULL);
+        tm* timePtr = localtime(&t);
+        year_ = timePtr->tm_year;
     }
-    void get_info()
-    {
-        std::cout<<year_<<" "<<month_<<" "<<day_<<std::endl;
-    }
-    private:
+
+private:
     int day_;
     int month_;
     int year_;
 };
-
-// int main()
-// {
-//     Date d1{1,1,1992};
-//     d1.get_info();
-//     Date d2{1,1};
-//     d2.get_info();
-//     return 0;
-// }
 
 
 ////////////////////////
@@ -98,41 +86,32 @@ class Cat {};
 
 
 // TODO: Write hello() function
-
-void hello()
-{
-    std::cout<< "Hello,World"<<std::endl;
+void hello(){
+    std::cout << "Hello, World" << std::endl;
 }
 // TODO: Overload hello() three times
 void hello(std::string name){
-    std::cout<<"hello: "<<name<<std::endl;
+    std::cout << "Hello : "<<  name << std::endl;
 }
-void hello(std::string name,int id1){
-    std::cout<<"hello: "<<name<<" id1: "<<id1<<std::endl;
+void hello(std::string name,int id){
+    std::cout << "Hello : "<<  name << ", id:"<< id<< std::endl;
 }
 
 //收其他的class 型別也可以
-void hello(Human& human){
-    std::cout<<"hello: "<<"human"<<std::endl;
-}
+void hello(Human human) { std::cout << "Hello, Human!\n"; }
+void hello(Dog dog) { std::cout << "Hello, Dog!\n"; }
+void hello(Cat cat) { std::cout << "Hello, Cat!\n"; }
 
-void hello(Dog Dog){
-    std::cout<<"hello: "<<"dog"<<std::endl;
-}
 
 
 // TODO: Call hello() from main()
 
 
 int main(){
-    
     hello();
-    Human h;
     hello("jerry");
     hello("jerry",4);
-    hello(h);
+    hello(Human());
     hello(Dog());
-    
-
-   
+    hello(Cat());
 }

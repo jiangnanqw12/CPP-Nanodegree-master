@@ -36,3 +36,57 @@ OBJECTIVES
 
 // include iostream for printing
 #include <iostream>
+// Define Point class
+class Point{
+    // Declare private attributes x and y
+private:
+    int x;
+    int y;
+public:
+    // Define public constructor
+    Point(int inx=0,int iny=0): x(inx), y(iny){}
+    // Define + operator overload
+
+    // 用下面的方法來 overloading +
+    // The following will be automatically called when '+' is used with
+    // between two Complex objects
+    Point operator - (Point const &obj){
+        Point res;
+        res.x = x-obj.x;
+        res.y = y-obj.y;
+
+        return res;
+    }
+    Point operator + (Point const &obj)
+    {
+        Point res;
+        res.x = Point::x + obj.x;
+        res.y = Point::y + obj.y;
+        return res;
+    }
+
+    // Define print() function to print (x,y) of Point
+
+    void Print(){
+        std::cout << "Point: (" << Point::x << ", " << Point::y << ")"<< "\n";
+        //std::cout << "Point: (" << x << ", " << y << ")"<< "\n";
+
+    }
+
+
+
+};
+// Test in main()
+int main()
+{
+    Point p1(10, 5);
+    Point p2(2, 4);
+    Point p = p1 + p2; // An example call to "operator +"
+    p1.Print();
+    p2.Print();
+    p.Print();
+
+    p = p1-p2;
+    p.Print();
+
+}
