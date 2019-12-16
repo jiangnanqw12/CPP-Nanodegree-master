@@ -89,7 +89,6 @@ public:
         std::cout<< y<< ",add:"<< &y << std::endl;
         std::cout<< theta<< ",add:"<< &theta << std::endl;
         std::cout <<"get_info in ParticleModel"<<std::endl;
-        std::cout<<"111"<<std::endl;
 
     }
 
@@ -117,7 +116,6 @@ public:
             std::cout<< y<< ",add:"<< &y << std::endl;
             std::cout<< theta<< ",add:"<< &theta << std::endl;
             std::cout <<"get_info in BicycleModel"<<std::endl;
-            std::cout<<"222"<<std::endl;
 
         }
 private:
@@ -149,7 +147,5 @@ int main()
 
     particle.get_info();
     bicycle.get_info();
-    particle.Move(10, PI/9);
-    bicycle.Move(10, PI/9);
 
 }
