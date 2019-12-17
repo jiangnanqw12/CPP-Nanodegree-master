@@ -59,54 +59,85 @@ OBJECTIVES
 
 
 // include iostream for printing
-#include<iostream>
-#include<cmath>
-#define Pi 3.1415926
+#include <iostream>
+#include <cmath>
+// Define pi constant
+#define PI 3.1415926
+
+
 class Shape{
-    public:
+// Define Shape base class
+// strictly base class because its interface is pure virtual methods
+public:
+    // Define public empty constructor
     Shape(){}
-    virtual double Area() const=0;
-    virtual double Perimeter() const=0;
+    // Define public virtual Area() and PerimeterLength()
+    virtual double Area() const = 0;
+    virtual double PerimeterLength() const = 0 ;
+        //const = 0 specifier in interface is telling the compiler that this method must be implemented in one of the derived classes
+        // For this class it is just part of the interface
 };
 
-class Rectangle:public Shape{
-    public:
-    Rectangle(double h,double l):height(h),length(l){}
-        
+class Rectangle : public Shape{
+// Define Rectangle to inherit publicly from Shape
+
+    // Declare private attributes width and height
+private:
+    double width = 0;
+    double height = 0;
+public:
+    // Declare public constructor
+    Rectangle(double w, double h) :width(w), height(h){}
+
+    // Override virtual base class functions
     virtual double Area() const override{
-        return height*length;
+        std::cout << "Rectangle Area:" << width * height << "\n";
+        return width * height;
     }
-    virtual double Perimeter()const override{
-        return 2*(height+length);
+
+    virtual double PerimeterLength() const override {
+        std::cout << "Rectangle PerimeterLength:" <<2*(width + height)<< "\n";
+        return 2*(width + height);
     }
-    private:
-    double height;
-    double length;
+        // Overriding methods
 };
-class Circle:public Shape{
-    public:
-    Circle(double r):radius(r){}
+
+class Circle : public Shape{
+// Define Circle to inherit publicly from Shape
+
+    // Declare private attributes radius
+private:
+    double radius = 0;
+public:
+    Circle(double r): radius(r){}
+    // Declare public constructor
+    // Override virtual base class functions
+    // 這些　virtual function 如果沒實做, main 中宣告 object 時就會報錯
     virtual double Area() const override{
-        return Pi*pow(radius,2);
+        std::cout << "Circle Area:" <<PI*pow(radius,2)<< "\n";
+        return  PI*pow(radius,2);
     }
-    virtual double Perimeter() const override{
-        return 2*Pi*radius;
+
+    virtual double PerimeterLength() const override{
+        std::cout << "Circle PerimeterLength:" <<2*PI*radius<< "\n";
+        return 2*PI*radius;
     }
-    private:
-    double radius=0;
 };
 
-int main()
-{
-    Rectangle r1(10,5);
+int main(){
+    // Test in main()
+    // Generic containter of Shapes (array) :
+    Shape** shapes = new Shape*[2];
+    shapes[0] = new Circle(12.31);
+    shapes[1] = new Rectangle(10, 6);
+    for (int i = 0;i < 2;i++) {
+        std::cout << "Area: " << shapes[i]->Area()<< "\n";
+        std::cout << "Perimeter: " << shapes[i]->PerimeterLength() << "\n";
 
-    std::cout<<r1.Area()<<std::endl;
-    Shape * * shape=new Shape*[2];
-    shape[1]=new Rectangle(6,9);
-    shape[0]=new Circle(12.3);
-    std::cout<<shape[1]->Area()<<std::endl;
-
+        }
 }
+
+
 
 
 

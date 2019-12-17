@@ -39,6 +39,7 @@
         "stdexcept": "cpp",
         "streambuf": "cpp",
         "typeinfo": "cpp",
+<<<<<<< HEAD
         "iterator": "cpp",
         "bitset": "cpp",
         "cfenv": "cpp",
@@ -71,4 +72,9 @@
         "typeindex": "cpp",
         "valarray": "cpp"
     }
+=======
+        "iterator": "cpp"
+    },
+    "C_Cpp.errorSquiggles": "Enabled"
+>>>>>>> 0293f98c39ee2c57376d2b393dd2f439b046e813
 }
