@@ -21,6 +21,7 @@ Which version overrides the others may change based on context.
 When a member function is defined in both a base class and a derived class, the definition in the derived
 class overrides the definition in the base class.
 
+
 如果有個function 在base class 和 derived class 都有定義, 這個衍伸func 會複寫base class
 
 
