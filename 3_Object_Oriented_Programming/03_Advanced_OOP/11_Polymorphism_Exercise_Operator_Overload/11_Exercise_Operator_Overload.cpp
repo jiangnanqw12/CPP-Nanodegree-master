@@ -36,3 +36,46 @@ OBJECTIVES
 
 // include iostream for printing
 #include <iostream>
+class Point
+{
+    private:
+    int x;
+    int y;
+    public:
+    Point(int xx=0,int yy=0){
+        x=xx;
+        y=yy;
+    }
+Point operator -(Point const &obj)
+{
+    Point res;
+    res.x=x-obj.x;
+    res.y=y-obj.y;
+    return res;
+}
+Point operator +(Point const &obj)
+{
+    Point res;
+    res.x=x+obj.x;
+    res.y=y+obj.y;
+    return res;
+}
+void Print(){
+    std::cout<<x<<std::endl;
+    std::cout<<y<<std::endl;
+}
+};
+// Test in main()
+int main()
+{
+    Point p1(10, 5);
+    Point p2(2, 4);
+    Point p = p1 + p2; // An example call to "operator +"
+    p1.Print();
+    p2.Print();
+    p.Print();
+
+    p = p1-p2;
+    p.Print();
+
+}
