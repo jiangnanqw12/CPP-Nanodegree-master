@@ -2,6 +2,7 @@
 #include<iostream>
 #include"ProcessParser.h"
 #include"util.h"
+#include <unistd.h>
 
 using std::string;
 //Reading /proc/[PID]/status for memory status of specific process
@@ -79,3 +80,55 @@ long int ProcessParser::getSysUpTime()
     vector<string> values(beg, end);
     return stoi(values[0]);
 }  
+
+string ProcessParser::getProcUser(string pid)
+{
+    string line;
+    string name = "Uid:";
+    string result ="";
+    ifstream stream = Util::getStream((Path::basePath() + pid + Path::statusPath()));
+    // Getting UID for user
+    while (std::getline(stream, line)) {
+        if (line.compare(0, name.size(),name) == 0) {
+            istringstream buf(line);
+            istream_iterator<string> beg(buf), end;
+            vector<string> values(beg, end);
+            result =  values[1];
+            break;
+        }
+    }
+    stream = Util::getStream("/etc/passwd");
+    name =("x:" + result);
+    // Searching for name of the user with selected UID
+    while (std::getline(stream, line)) {
+        if (line.find(name) != std::string::npos) {
+            result = line.substr(0, line.find(":"));
+            return result;
+        }
+    }
+    return "";
+}
+
+vector<string> ProcessParser::getPidList()
+{
+    DIR* dir;
+    // Basically, we are scanning /proc dir for all directories with numbers as their names
+    // If we get valid check we store dir names in vector as list of machine pids
+    vector<string> container;
+    if(!(dir = opendir("/proc")))
+        throw std::runtime_error(std::strerror(errno));
+
+    while (dirent* dirp = readdir(dir)) {
+        // is this a directory?
+        if(dirp->d_type != DT_DIR)
+            continue;
+        // Is every character of the name a digit?
+        if (all_of(dirp->d_name, dirp->d_name + std::strlen(dirp->d_name), [](char c){ return std::isdigit(c); })) {
+            container.push_back(dirp->d_name);
+        }
+    }
+    //Validating process of directory closing
+    if(closedir(dir))
+        throw std::runtime_error(std::strerror(errno));
+    return container;
+}
