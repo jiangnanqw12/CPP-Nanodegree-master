@@ -41,13 +41,10 @@ public:
     static int getNumberOfCores();
 };
 
-
-
-// int main()
-// {
-//     return 0;
-// }
-
+int main()
+{
+    return 0;
+}
 
 string ProcessParser::getVmSize(string pid)
 {
@@ -325,26 +322,7 @@ string ProcessParser::getSysKernelVersion()
     return "";
 }
 
-string ProcessParser::getOsName()
-{
-    string line;
-    string name = "PRETTY_NAME=";
 
-    ifstream stream = Util::getStream(("/etc/os-release"));
-
-    while (std::getline(stream, line))
-    {
-        if (line.compare(0, name.size(), name) == 0)
-        {
-            std::size_t found = line.find("=");
-            found++;
-            string result = line.substr(found);
-            result.erase(std::remove(result.begin(), result.end(), '"'), result.end());
-            return result;
-        }
-    }
-    return "";
-}
 
 int ProcessParser::getTotalThreads()
 {
@@ -368,64 +346,69 @@ int ProcessParser::getTotalThreads()
                 break;
             }
         }
-        return result;
     }
+    return result;
+}
 
-    // int ProcessParser::getTotalNumberOfProcesses()
-    // {
-    //     string line;
-    //     int result = 0;
-    //     string name = "processes";
-    //     ifstream stream = Util::getStream((Path::basePath() + Path::statPath()));
-    //     while (std::getline(stream, line)) {
-    //         if (line.compare(0, name.size(), name) == 0) {
-    //             istringstream buf(line);
-    //             istream_iterator<string> beg(buf), end;
-    //             vector<string> values(beg, end);
-    //             result += stoi(values[1]);
-    //             break;
-    //         }
-    //     }
-    //     return result;
-    // }
+int ProcessParser::getTotalNumberOfProcesses()
+{
+    string line;
+    int result = 0;
+    string name = "processes";
+    ifstream stream = Util::getStream((Path::basePath() + Path::statPath()));
 
-    int ProcessParser::getTotalNumberOfProcesses()
+    while (std::getline(stream, line))
     {
-        string line;
-        int result = 0;
-        string name = "processes";
-        ifstream stream = Util::getStream((Path::basePath() + Path::statPath()));
-
-        while (std::getline(stream, line))
+        if (line.compare(0, name.size(), name) == 0)
         {
-            if (line.compare(0, name.size(), name) == 0)
-            {
-                istringstream buf(line);
-                istream_iterator<string> beg(buf), end;
-                vector<string> values(beg, end);
-                result += stoi(values[1]);
-                break;
-            }
+            istringstream buf(line);
+            istream_iterator<string> beg(buf), end;
+            vector<string> values(beg, end);
+            result += stoi(values[1]);
+            break;
         }
-        return result;
     }
+    return result;
+}
 
-    int ProcessParser::getNumberOfRunningProcesses ()
+int ProcessParser::getNumberOfRunningProcesses()
+{
+    string line;
+    int result = 0;
+    string name = "procs_running";
+    ifstream stream = Util::getStream((Path::basePath() + Path::statPath()));
+
+    while (std::getline(stream, line))
     {
-        string line;
-        int result = 0;
-        string name = "procs_running";
-        ifstream stream = Util::getStream((Path::basePath() + Path::statPath()));
-        while (std::getline(stream, line))
+        if (line.compare(0, name.size(), name) == 0)
         {
-            if (line.compare(0, name.size(), name) == 0)
-            {
-                istringstream buf(line);
-                istream_iterator<string> beg(buf), end;
-                vector<string> values(beg, end);
-                result += stoi(values[1]);
-                break;
-            }
+            istringstream buf(line);
+            istream_iterator<string> beg(buf), end;
+            vector<string> values(beg, end);
+            result += stoi(values[1]);
+            break;
         }
-        return result;
     }
+    return result;
+}
+
+string ProcessParser::getOsName()
+{
+    string line;
+    string name = "PRETTY_NAME=";
+
+    ifstream stream = Util::getStream(("/etc/os-release"));
+
+    while (std::getline(stream, line))
+    {
+        if (line.compare(0, name.size(), name) == 0)
+        {
+            std::size_t found = line.find("=");
+            found++;
+            string result = line.substr(found);
+            result.erase(std::remove(result.begin(), result.end(), '"'), result.end());
+            return result;
+        }
+    }
+    return "";
+}

@@ -1,32 +1,39 @@
-#include <iostream>
-#include <sstream>
-#include <fstream>
-#include <iterator>
-#include <vector>
-#include <dirent.h>
 #include <algorithm>
-#include <string.h>
 #include <iostream>
-#include "ProcessParser.h"
-#include "util.h"
+#include <math.h>
+#include <thread>
+#include <chrono>
+#include <iterator>
+#include <string>
+#include <stdlib.h>
+#include <stdio.h>
+#include <vector>
+#include <fstream>
+#include <sstream>
+#include <stdexcept>
+#include <cerrno>
+#include <cstring>
+#include <dirent.h>
+#include <time.h>
 #include <unistd.h>
-//#include "ProcessParser.h"
+#include "util.h"
+#include "constants.h"
 using namespace std;
 void print_vector(vector<string> &vec);
 vector<string> test_path_stream();
 vector<string> test_pidlist();
 void test_fee();
-
+void test();
 int main()
 {
-    
+    test;
     return 0;
 }
 void test()
 {
     string line;
     ifstream stream("t.txt");
-    vector<string> result;
+    
     int index;
     while (getline(stream, line))
     {
@@ -34,12 +41,17 @@ void test()
         istream_iterator<string> beg(buf);
         istream_iterator<string> end;
         vector<string> values(beg, end);
-        result = values;
+        
     }
-index=line.find("=");
-index++;
+    index = line.find("=");
+    index++;
+    string result = line.substr(index);
+    //cout << "begin"<<result.begin()<< endl;
 
-    print_vector(result);
+    result.erase(std::remove(result.begin(), result.end(), '"'), result.end());
+    cout << result[0] << endl;
+
+    //print_vector(result);
 }
 void test_fee()
 {

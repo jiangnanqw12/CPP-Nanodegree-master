@@ -20,7 +20,7 @@
 #include <unistd.h>
 #include "util.h"
 #include "constants.h"
-
+using namespace std;
 
 class ProcessParser
 {
@@ -40,7 +40,7 @@ public:
     static int getNumberOfRunningProcesses();
     static string getOsName();
     static std::string printCpuStats(std::vector<std::string> values1, std::vector<std::string> values2);
-    static int ProcessParser::getNumberOfCores();
+    static int getNumberOfCores();
 };
 
 //Reading /proc/[PID]/status for memory status of specific process
@@ -365,24 +365,9 @@ int ProcessParser::getTotalThreads()
         }
         return result;
     }
+    }
 
-    // int ProcessParser::getTotalNumberOfProcesses()
-    // {
-    //     string line;
-    //     int result = 0;
-    //     string name = "processes";
-    //     ifstream stream = Util::getStream((Path::basePath() + Path::statPath()));
-    //     while (std::getline(stream, line)) {
-    //         if (line.compare(0, name.size(), name) == 0) {
-    //             istringstream buf(line);
-    //             istream_iterator<string> beg(buf), end;
-    //             vector<string> values(beg, end);
-    //             result += stoi(values[1]);
-    //             break;
-    //         }
-    //     }
-    //     return result;
-    // }
+   
 
     int ProcessParser::getTotalNumberOfProcesses()
     {
