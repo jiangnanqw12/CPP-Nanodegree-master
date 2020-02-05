@@ -18,22 +18,38 @@
 #include <unistd.h>
 #include "util.h"
 #include "constants.h"
+#include "ProcessParser.h"
+#include "process.h"
 using namespace std;
 void print_vector(vector<string> &vec);
 vector<string> test_path_stream();
 vector<string> test_pidlist();
 void test_fee();
-void test();
+void testreadFile();
+void testProcess();
+
 int main()
 {
-    test;
+
+    //testProcess();
     return 0;
 }
-void test()
+void testProcess()
+{
+    
+    
+    Process p1("1");
+    //p1.setPid(1);
+    cout<<"t"<<endl;
+    cout<<p1.getPid()<<endl;
+    string t2=p1.getProcess();
+    cout<<t2;
+}
+void testreadFile()
 {
     string line;
     ifstream stream("t.txt");
-    
+
     int index;
     while (getline(stream, line))
     {
@@ -41,7 +57,6 @@ void test()
         istream_iterator<string> beg(buf);
         istream_iterator<string> end;
         vector<string> values(beg, end);
-        
     }
     index = line.find("=");
     index++;
