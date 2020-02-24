@@ -53,7 +53,7 @@ string ProcessParser::getVmSize(string pid)
     float result;
     // Opening stream for specific file
     ifstream stream = Util::getStream((Path::basePath() + pid + Path::statusPath()));
-    while (std::getline(stream, line))
+    while (getline(stream, line))
     {
         // Searching line by line
         if (line.compare(0, name.size(), name) == 0)
