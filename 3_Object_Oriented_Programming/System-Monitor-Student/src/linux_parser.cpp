@@ -3,10 +3,12 @@
 #include <dirent.h>
 #include <unistd.h>
 
+#include <iostream>
 #include <string>
 #include <vector>
 #include <sstream>
 #include <iterator>
+
 
 using std::ifstream;
 using std::istringstream;
@@ -89,6 +91,7 @@ float LinuxParser::MemoryUtilization()
       istream_iterator<string> beg(buf),end;
       vector<string> values(beg,end);
       resultTotal=values[1];
+      //std::cout<<resultTotal<<std::endl;
     }
     if (line.compare(0,name2.size(),name2)==0)
     {
@@ -96,10 +99,15 @@ float LinuxParser::MemoryUtilization()
       istream_iterator<string> beg(buf),end;
       vector<string> values(beg,end);
       resultFree=values[1];
+      //std::cout<<resultFree<<std::endl;
+      
     }
 
   }
-  return stof(resultTotal)-stof(resultFree); }
+  float memFreeGB=stol(resultFree)/(1024*1024);
+  float memTotalGB=stol(resultTotal)/(1024*1024);
+  
+  return (memTotalGB-memFreeGB)/memTotalGB ;}
 
 // TODO: Read and return the system uptime
 long LinuxParser::UpTime() 
@@ -114,7 +122,35 @@ long LinuxParser::UpTime()
   }
 
 // TODO: Read and return the number of jiffies for the system
-long LinuxParser::Jiffies() { return 0; }
+long LinuxParser::Jiffies() { 
+  string line;
+  ifstream fstream(kProcDirectory+kStatFilename);
+  string cpu;
+    long user;
+    long nice;
+    long system;
+    long idle;
+    long iowait;
+    long irq;
+    long softirq;
+    long steal;
+    long guess;
+    long guessnice;
+  if(fstream.is_open())
+  {
+    getline(fstream,line);
+    istringstream linestream(line);
+    
+    linestream >> cpu >> user >> nice >> system >> idle >> iowait >> irq >> softirq >> steal >> guess >> guessnice;
+      
+  }
+  long totalUserTime = user - guess;
+      long totalNiceTime = nice - guessnice;
+      long totalIdleTime = idle + iowait;
+      long totalSystem = system + irq + softirq;
+      long totalVirtualTime = guess + guessnice;
+  
+      return totalUserTime+totalNiceTime+totalIdleTime+totalSystem+totalVirtualTime; }
 
 // TODO: Read and return the number of active jiffies for a PID
 // REMOVE: [[maybe_unused]] once you define the function
