@@ -4,19 +4,18 @@
 #include <unistd.h>
 
 #include <iostream>
+#include <iterator>
+#include <sstream>
 #include <string>
 #include <vector>
-#include <sstream>
-#include <iterator>
-
 
 using std::ifstream;
+using std::istream_iterator;
 using std::istringstream;
 using std::stof;
 using std::string;
 using std::to_string;
 using std::vector;
-using std::istream_iterator;
 
 // DONE: An example of how to read data from the filesystem
 string LinuxParser::OperatingSystem() {
@@ -75,86 +74,83 @@ vector<int> LinuxParser::Pids() {
 }
 
 // TODO: Read and return the system memory utilization
-float LinuxParser::MemoryUtilization() 
-{ 
+float LinuxParser::MemoryUtilization() {
   string line;
-  string resultTotal="";
-  string resultFree="";
-  string name1="MemTotal";
-  string name2="MemFree";
-  ifstream fstream(kProcDirectory+kMeminfoFilename);
-  while(getline(fstream,line))
-  {
-    if (line.compare(0,name1.size(),name1)==0)
-    {
+  string resultTotal = "";
+  string resultFree = "";
+  string name1 = "MemTotal";
+  string name2 = "MemFree";
+  ifstream fstream(kProcDirectory + kMeminfoFilename);
+  while (getline(fstream, line)) {
+    if (line.compare(0, name1.size(), name1) == 0) {
       istringstream buf(line);
-      istream_iterator<string> beg(buf),end;
-      vector<string> values(beg,end);
-      resultTotal=values[1];
-      //std::cout<<resultTotal<<std::endl;
+      istream_iterator<string> beg(buf), end;
+      vector<string> values(beg, end);
+      resultTotal = values[1];
+      // std::cout<<resultTotal<<std::endl;
     }
-    if (line.compare(0,name2.size(),name2)==0)
-    {
+    if (line.compare(0, name2.size(), name2) == 0) {
       istringstream buf(line);
-      istream_iterator<string> beg(buf),end;
-      vector<string> values(beg,end);
-      resultFree=values[1];
-      //std::cout<<resultFree<<std::endl;
-      
+      istream_iterator<string> beg(buf), end;
+      vector<string> values(beg, end);
+      resultFree = values[1];
+      // std::cout<<resultFree<<std::endl;
     }
-
   }
-  float memFreeGB=stol(resultFree)/(1024*1024);
-  float memTotalGB=stol(resultTotal)/(1024*1024);
-  
-  return (memTotalGB-memFreeGB)/memTotalGB ;}
+  float memFreeGB = stol(resultFree) / (1024 * 1024);
+  float memTotalGB = stol(resultTotal) / (1024 * 1024);
+
+  return (memTotalGB - memFreeGB) / memTotalGB;
+}
 
 // TODO: Read and return the system uptime
-long LinuxParser::UpTime() 
-{ 
+long LinuxParser::UpTime() {
   string line;
-  ifstream fstream(kProcDirectory+kUptimeFilename);
-  getline(fstream,line);
+  ifstream fstream(kProcDirectory + kUptimeFilename);
+  getline(fstream, line);
   istringstream buf(line);
-  istream_iterator <string> beg(buf),end;
-  vector<string> values(beg,end);
-  return stol(values[0]); 
-  }
+  istream_iterator<string> beg(buf), end;
+  vector<string> values(beg, end);
+  return stol(values[0]);
+}
 
 // TODO: Read and return the number of jiffies for the system
-long LinuxParser::Jiffies() { 
+long LinuxParser::Jiffies() {
   string line;
-  ifstream fstream(kProcDirectory+kStatFilename);
+  ifstream fstream(kProcDirectory + kStatFilename);
   string cpu;
-    long user;
-    long nice;
-    long system;
-    long idle;
-    long iowait;
-    long irq;
-    long softirq;
-    long steal;
-    long guess;
-    long guessnice;
-  if(fstream.is_open())
-  {
-    getline(fstream,line);
+  long user;
+  long nice;
+  long system;
+  long idle;
+  long iowait;
+  long irq;
+  long softirq;
+  long steal;
+  long guess;
+  long guessnice;
+  if (fstream.is_open()) {
+    getline(fstream, line);
     istringstream linestream(line);
-    
-    linestream >> cpu >> user >> nice >> system >> idle >> iowait >> irq >> softirq >> steal >> guess >> guessnice;
-      
+
+    linestream >> cpu >> user >> nice >> system >> idle >> iowait >> irq >>
+        softirq >> steal >> guess >> guessnice;
   }
   long totalUserTime = user - guess;
-      long totalNiceTime = nice - guessnice;
-      long totalIdleTime = idle + iowait;
-      long totalSystem = system + irq + softirq;
-      long totalVirtualTime = guess + guessnice;
-  
-      return totalUserTime+totalNiceTime+totalIdleTime+totalSystem+totalVirtualTime; }
+  long totalNiceTime = nice - guessnice;
+  long totalIdleTime = idle + iowait;
+  long totalSystem = system + irq + softirq;
+  long totalVirtualTime = guess + guessnice;
+
+  return totalUserTime + totalNiceTime + totalIdleTime + totalSystem +
+         totalVirtualTime;
+}
 
 // TODO: Read and return the number of active jiffies for a PID
 // REMOVE: [[maybe_unused]] once you define the function
-long LinuxParser::ActiveJiffies(int pid [[maybe_unused]]) { return 0; }
+long LinuxParser::ActiveJiffies(int pid) {
+  
+}
 
 // TODO: Read and return the number of active jiffies for the system
 long LinuxParser::ActiveJiffies() { return 0; }

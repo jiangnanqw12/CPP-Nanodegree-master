@@ -4,7 +4,7 @@
 using namespace std;
 int main()
 {
-  cout<<LinuxParser::MemoryUtilization()<<endl;
-  cout<<LinuxParserS::MemoryUtilization()<<endl;
+  cout<<LinuxParser::Jiffies()<<endl;
+  cout<<LinuxParserS::Jiffies()<<endl;
   return 0;
 }
