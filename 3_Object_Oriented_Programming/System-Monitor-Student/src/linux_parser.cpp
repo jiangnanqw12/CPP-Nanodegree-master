@@ -149,17 +149,101 @@ long LinuxParser::Jiffies() {
 // TODO: Read and return the number of active jiffies for a PID
 // REMOVE: [[maybe_unused]] once you define the function
 long LinuxParser::ActiveJiffies(int pid) {
-  
+  ifstream fstream(kProcDirectory + to_string(pid) + kStatFilename);
+  if (fstream.is_open()) {
+    long utime;
+    long stime;
+    long cutime;
+    long cstime;
+    string ignore;
+    long starttime;
+    string line;
+    getline(fstream, line);
+    istringstream linestream(line);
+    for (int i = 0; i < 13; i++) linestream >> ignore;
+    linestream >> utime >> stime >> cutime >> cstime;
+    for (int i = 0; i < 4; i++) linestream >> ignore;
+    linestream >> starttime;
+    return utime + stime + cutime + cstime + starttime;
+  }
 }
 
 // TODO: Read and return the number of active jiffies for the system
-long LinuxParser::ActiveJiffies() { return 0; }
+long LinuxParser::ActiveJiffies() {
+  std::ifstream filestream(kProcDirectory + kUptimeFilename);
+  long upTime = 0;
+  long idleTime;
+  if (filestream.is_open()) {
+    std::string line;
+    std::getline(filestream, line);
+    std::istringstream linestream(line);
+    linestream >> upTime >> idleTime;
+  }
+  return 0;
+}
 
 // TODO: Read and return the number of idle jiffies for the system
-long LinuxParser::IdleJiffies() { return 0; }
+long LinuxParser::IdleJiffies() {
+  string os, kernel;
+  string line;
+  std::ifstream filestream(kProcDirectory + kStatFilename);
+  if (filestream.is_open()) {
+    std::string line;
+    std::getline(filestream, line);
+    std::istringstream linestream(line);
+    std::string cpu;
+    long user;
+    long nice;
+    long system;
+    long idle;
+    long iowait;
+    long irq;
+    long softirq;
+    long steal;
+    long guess;
+    long guessnice;
+    linestream >> cpu >> user >> nice >> system >> idle >> iowait >> irq >>
+        softirq >> steal >> guess >> guessnice;
+    long totalUserTime = user - guess;
+    long totalNiceTime = nice - guessnice;
+    long totalIdleTime = idle + iowait;
+    long totalSystem = system + irq + softirq;
+    long totalVirtualTime = guess + guessnice;
+    return totalIdleTime;
+  }
+  return 0;
+}
 
+vector<LinuxParser::CpuKPI> LinuxParser::CpuUtilPercentage() {
+  ifstream fstream(kProcDirectory + kStatFilename);
+  string line;
+  getline(fstream, line);
+  istringstream linestream(line);
+  string cpu;
+  vector<LinuxParser::CpuKPI> returnVec;
+  long user;
+  long nice;
+  long system;
+  long idle;
+  long iowait;
+  long irq;
+  long softirq;
+  long steal;
+  long guess;
+  long guessnice;
+  linestream >> cpu >> user >> nice >> system >> idle >> iowait >> irq >>
+      softirq >> steal >> guess >> guessnice;
+  CpuKPI CpuS;
+  CpuS.idleTime = idle + iowait;
+  CpuS.totalTime = user + nice + system + irq + softirq;
+  returnVec.emplace_back(CpuS);
+  return returnVec;
+}
 // TODO: Read and return CPU utilization
-vector<string> LinuxParser::CpuUtilization() { return {}; }
+vector<string> LinuxParser::CpuUtilization() { 
+  vector<CpuKPI> previousVec=;
+  vector<CpuKPI> currentVec;
+   return {}; }
 
 // TODO: Read and return the total number of processes
 int LinuxParser::TotalProcesses() { return 0; }
