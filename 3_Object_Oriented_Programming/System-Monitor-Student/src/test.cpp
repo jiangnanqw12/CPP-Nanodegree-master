@@ -4,7 +4,7 @@
 using namespace std;
 int main()
 {
-  cout<<LinuxParser::ActiveJiffies(1)<<endl;
-  cout<<LinuxParserS::ActiveJiffies(1)<<endl;
+  cout<<LinuxParser::CpuUtilization()[0]<<endl;
+  cout<<LinuxParserS::CpuUtilization()[0]<<endl;
   return 0;
 }

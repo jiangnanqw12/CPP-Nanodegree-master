@@ -320,6 +320,7 @@ vector<string> LinuxParserS::CpuUtilization() {
   std::vector<LinuxParserS::CpuKPI> currentVector = LinuxParserS::CpuUtilPercentage(); 
   vector<std::string> returnCpu;
   for(int i = 0; i < currentVector.size(); i++) {
+    std::cout<<i<<std::endl;
       std::ostringstream oCpuStream;
       long totalDelta = currentVector[i].totalTime - previousVector[i].totalTime ;
       long idleDelta = currentVector[i].idleTime - previousVector[i].idleTime ;

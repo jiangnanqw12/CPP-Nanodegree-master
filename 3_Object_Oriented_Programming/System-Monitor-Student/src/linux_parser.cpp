@@ -241,9 +241,15 @@ vector<LinuxParser::CpuKPI> LinuxParser::CpuUtilPercentage() {
 }
 // TODO: Read and return CPU utilization
 vector<string> LinuxParser::CpuUtilization() { 
-  vector<CpuKPI> previousVec=;
-  vector<CpuKPI> currentVec;
-   return {}; }
+  vector<CpuKPI> previousVec=CpuUtilPercentage();
+  vector<CpuKPI> currentVec=CpuUtilPercentage();
+  long idleDelta=currentVec[0].idleTime-previousVec[0].idleTime;
+  sleep(1);
+  long totalDelta=currentVec[0].totalTime-previousVec[0].totalTime;
+  float CpuU =(totalDelta-idleDelta)*1.0/totalDelta*1.0;
+  std::cout<<idleDelta<<std::endl;
+  std::cout<<totalDelta<<std::endl;
+   return {to_string(CpuU)}; }
 
 // TODO: Read and return the total number of processes
 int LinuxParser::TotalProcesses() { return 0; }

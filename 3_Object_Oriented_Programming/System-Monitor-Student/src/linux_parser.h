@@ -46,7 +46,7 @@ struct CpuKPI{
   long idleTime;
   long totalTime;
 };
-vector<CpuKPI> CpuUtilPercentage();
+std::vector<CpuKPI> CpuUtilPercentage();
 std::vector<std::string> CpuUtilization();
 long Jiffies();
 long ActiveJiffies();
