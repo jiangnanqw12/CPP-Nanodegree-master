@@ -1,6 +1,6 @@
 #include<iostream>
-#include"linux_parser.h"
-#include"linux_parserS.h"
+#include"linux_parser.cpp"
+#include"linux_parserS.cpp"
 using namespace std;
 int main()
 {
