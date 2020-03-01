@@ -1,10 +1,11 @@
 #include<iostream>
-#include"linux_parser.cpp"
-#include"linux_parserS.cpp"
+#include"format.h"
+
 using namespace std;
 int main()
 {
-  cout<<LinuxParser::TotalProcesses()<<endl;
-  cout<<LinuxParserS::TotalProcesses()<<endl;
+  
+  cout<<Format::ElapsedTime(3600)<<endl;
+  
   return 0;
 }
