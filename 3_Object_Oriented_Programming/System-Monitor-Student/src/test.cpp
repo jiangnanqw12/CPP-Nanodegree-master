@@ -4,7 +4,7 @@
 using namespace std;
 int main()
 {
-  cout<<LinuxParser::CpuUtilization()[0]<<endl;
-  cout<<LinuxParserS::CpuUtilization()[0]<<endl;
+  cout<<LinuxParser::TotalProcesses()<<endl;
+  cout<<LinuxParserS::TotalProcesses()<<endl;
   return 0;
 }

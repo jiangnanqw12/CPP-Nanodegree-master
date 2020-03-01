@@ -217,42 +217,73 @@ long LinuxParser::IdleJiffies() {
 vector<LinuxParser::CpuKPI> LinuxParser::CpuUtilPercentage() {
   ifstream fstream(kProcDirectory + kStatFilename);
   string line;
-  getline(fstream, line);
-  istringstream linestream(line);
-  string cpu;
   vector<LinuxParser::CpuKPI> returnVec;
-  long user;
-  long nice;
-  long system;
-  long idle;
-  long iowait;
-  long irq;
-  long softirq;
-  long steal;
-  long guess;
-  long guessnice;
-  linestream >> cpu >> user >> nice >> system >> idle >> iowait >> irq >>
-      softirq >> steal >> guess >> guessnice;
-  CpuKPI CpuS;
-  CpuS.idleTime = idle + iowait;
-  CpuS.totalTime = user + nice + system + irq + softirq;
-  returnVec.emplace_back(CpuS);
+  while (getline(fstream, line)) {
+    istringstream linestream(line);
+    string cpu;
+
+    long user;
+    long nice;
+    long system;
+    long idle;
+    long iowait;
+    long irq;
+    long softirq;
+    long steal;
+    long guess;
+    long guessnice;
+    linestream >> cpu >> user >> nice >> system >> idle >> iowait >> irq >>
+        softirq >> steal >> guess >> guessnice;
+    if (cpu.substr(0, 3) != "cpu") return returnVec;
+    CpuKPI CpuS;
+    long totalIdleTime = idle + iowait;
+    long totalNoIdleTime = user + nice + system + irq + softirq;
+    CpuS.idleTime = totalIdleTime;
+    CpuS.totalTime = totalIdleTime + totalNoIdleTime;
+    returnVec.emplace_back(CpuS);
+  }
   return returnVec;
 }
 // TODO: Read and return CPU utilization
-vector<string> LinuxParser::CpuUtilization() { 
-  vector<CpuKPI> previousVec=CpuUtilPercentage();
-  vector<CpuKPI> currentVec=CpuUtilPercentage();
-  long idleDelta=currentVec[0].idleTime-previousVec[0].idleTime;
+vector<string> LinuxParser::CpuUtilization() {
+  vector<CpuKPI> previousVec = CpuUtilPercentage();
   sleep(1);
-  long totalDelta=currentVec[0].totalTime-previousVec[0].totalTime;
-  float CpuU =(totalDelta-idleDelta)*1.0/totalDelta*1.0;
-  std::cout<<idleDelta<<std::endl;
-  std::cout<<totalDelta<<std::endl;
-   return {to_string(CpuU)}; }
+  vector<CpuKPI> currentVec = CpuUtilPercentage();
+  vector<string> reutrnVec;
+  for (int i = 0; i < currentVec.size(); i++) {
+    long idleDelta = currentVec[i].idleTime - previousVec[i].idleTime;
+
+    long totalDelta = currentVec[i].totalTime - previousVec[i].totalTime;
+    double CpuU = (totalDelta - idleDelta) * 1.0 / totalDelta * 1.0;
+    reutrnVec.emplace_back(to_string(CpuU));
+  }
+  // std::cout<<idleDelta<<std::endl;
+  // std::cout<<totalDelta<<std::endl;
+  return reutrnVec;
+}
 
 // TODO: Read and return the total number of processes
-int LinuxParser::TotalProcesses() { return 0; }
+int LinuxParser::TotalProcesses() {
+  ifstream fstream(kProcDirectory + kStatFilename);
+  string line;
+  string key;
+  int num=0;
+  bool processesNumberFound=false;
+
+  while (getline(fstream, line)&&!processesNumberFound) {
+    
+    istringstream linestream(line);
+    linestream>>key;
+    //std::cout<<key<<std::endl;
+    if (key=="processes")
+    {
+      
+      linestream>>num;
+      processesNumberFound=true;
+    }
+  }
+  return num;
+}
 
 // TODO: Read and return the number of running processes
 int LinuxParser::RunningProcesses() { return 0; }
