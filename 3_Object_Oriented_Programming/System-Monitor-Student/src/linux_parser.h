@@ -29,6 +29,7 @@ int RunningProcesses();
 std::string OperatingSystem();
 std::string Kernel();
 
+
 // CPU
 enum CPUStates {
   kUser_ = 0,
@@ -46,8 +47,13 @@ struct CpuKPI{
   long idleTime;
   long totalTime;
 };
+struct CpuProcessInfo {
+  float totalTime;
+  float seconds;
+};
 std::vector<CpuKPI> CpuUtilPercentage();
 std::vector<std::string> CpuUtilization();
+
 long Jiffies();
 long ActiveJiffies();
 long ActiveJiffies(int pid);
@@ -59,6 +65,8 @@ std::string Ram(int pid);
 std::string Uid(int pid);
 std::string User(int pid);
 long int UpTime(int pid);
+CpuProcessInfo GetProcessCpuInfo(int pid);
+float CpuUtilization(int pid);
 };  // namespace LinuxParser
 
 #endif

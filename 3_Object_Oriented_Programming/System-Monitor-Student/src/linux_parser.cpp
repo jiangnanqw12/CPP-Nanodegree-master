@@ -410,3 +410,38 @@ long LinuxParser::UpTime(int pid) {
   }
   return starttime; 
   }
+
+LinuxParser::CpuProcessInfo LinuxParser::GetProcessCpuInfo(int pid) {
+    std::stringstream filename;
+    filename << kProcDirectory << "/" << pid << "/" << kStatFilename;
+    std::ifstream filestream(filename.str());
+    LinuxParser::CpuProcessInfo returnInfo;
+    if (filestream.is_open()) {
+        std::string line;
+        std::getline(filestream, line);
+        std::istringstream linestream(line);
+        std::string ignore;
+        long utime;
+        long stime;
+        long cutime;
+        long cstime;
+        long starttime;
+        for(int i = 0; i < 13; i++) linestream >> ignore;
+        linestream >> utime >> stime >> cutime >> cstime ;
+        for(int i = 0; i < 4; i++) linestream >> ignore;
+        linestream >> starttime;
+        returnInfo.seconds = LinuxParser::UpTime() - (starttime/sysconf(_SC_CLK_TCK));
+        returnInfo.totalTime = (utime + stime + cutime + cstime)/sysconf(_SC_CLK_TCK);
+    }   
+    return returnInfo;
+  }
+
+    float LinuxParser::CpuUtilization(int pid)
+  {
+    //LinuxParserS::CpuProcessInfo previous = LinuxParserS::GetProcessCpuInfo(pid);
+    //sleep(1);
+    LinuxParser::CpuProcessInfo current = LinuxParser::GetProcessCpuInfo(pid);
+    long secondsd = current.seconds; // - previous.seconds;
+    long totald = current.totalTime;// - previous.totalTime;
+    return totald*1.0/secondsd;//secondsd;
+  }
