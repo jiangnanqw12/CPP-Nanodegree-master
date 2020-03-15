@@ -31,6 +31,7 @@ public:
     float g_value = 0.0;
     bool visited = false;
     std::vector<Node *> neighbors;
+    float distance(Node node) const;
 
   private:
     // Add private Node variables and methods here.

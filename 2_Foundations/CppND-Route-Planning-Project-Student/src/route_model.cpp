@@ -11,3 +11,7 @@ RouteModel::RouteModel(const std::vector<std::byte> &xml) : Model(xml)
         this->m_Nodes.emplace_back(n1);
     }
 }
+float RouteModel::Node::distance(Node node) const
+{
+    return std::sqrt(std::pow((node.x - x), 2) + std::pow((node.y - y), 2));
+}
