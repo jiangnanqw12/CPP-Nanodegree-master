@@ -1,7 +1,7 @@
-*.out
 *.swp
 *.osm
 *.o
+*.out
 draw.cpp
 test.cpp
 build/
