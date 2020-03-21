@@ -1,4 +1,5 @@
-#pragma once
+#ifndef ROUTE_PLANNER_H
+#define ROUTE_PLANNER_H
 
 #include <iostream>
 #include <vector>
@@ -9,37 +10,24 @@
 class RoutePlanner {
   public:
     RoutePlanner(RouteModel &model, float start_x, float start_y, float end_x, float end_y);
-
-    //A* Search
+    // Add public variables or methods declarations here.
+    float GetDistance() const {return distance;}
     void AStarSearch();
 
-    //Get found solution distance
-    float GetDistance() const { return distance; }
+    // The following methods have been made public so we can test them individually.
+    void AddNeighbors(RouteModel::Node *current_node);
+    float CalculateHValue(RouteModel::Node const *node);
+    std::vector<RouteModel::Node> ConstructFinalPath(RouteModel::Node *);
+    RouteModel::Node *NextNode();
 
   private:
-    // OSM model augmented to performed A*
+    // Add private variables or methods declarations here.
+    std::vector<RouteModel::Node*> open_list;
+    RouteModel::Node *start_node;
+    RouteModel::Node *end_node;
+
+    float distance = 0.0f;
     RouteModel &m_Model;
-
-    //Start and end Nodes of the search
-    RouteModel::Node *start_node, *end_node;
-
-    //Found route distance
-    float distance;
-
-    //List of open Nodes used uding search
-    std::vector<RouteModel::Node *> open_list;
-
-    //Rebuild path from last Node, from parent to parent until reaching start node
-    std::vector<RouteModel::Node> ConstructFinalPath(RouteModel::Node *current_node);
-
-    //Compute H Value of specific Node
-    //  (Heuristic is distance to end node)
-    float CalculateHValue(const RouteModel::Node node);
-
-    //From the list of open Nodes, find the one with lowest F-value
-    //  F is H(heuristic) + G(current weight)
-    RouteModel::Node * NextNode();
-
-    //Add new neigbor to node's list (and update its h/g/parent)
-    void AddNeighbors(RouteModel::Node *newNode);
 };
+
+#endif
