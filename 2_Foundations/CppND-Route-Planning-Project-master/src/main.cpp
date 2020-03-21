@@ -28,10 +28,7 @@ static std::optional<std::vector<std::byte>> ReadFile(const std::string &path)
 }
 
 int main(int argc, const char **argv)
-{
-    /////////////////////////////////////////
-    //Part1: The OSM data is read into the program.
-    /////////////////////////////////////////
+{    
     std::string osm_data_file = "";
     if( argc > 1 ) {
         for( int i = 1; i < argc; ++i )
@@ -53,31 +50,37 @@ int main(int argc, const char **argv)
             osm_data = std::move(*data);
     }
     
-    // TODO: Declare floats `start_x`, `start_y`, `end_x`, and `end_y` and get
+    //retreive user input
+    float start_x, start_y, end_x, end_y;
     // user input for these values using std::cin. Pass the user input to the
     // RoutePlanner object below.
+    // std::cout << "Enter X starting position between 0 and 100:" << std::endl;
+    // std::cin >> start_x; 
+    // std::cout << "Enter Y starting position between 0 and 100:" << std::endl;
+    // std::cin >> start_y; 
+    // std::cout << "Enter X ending position between 0 and 100:" << std::endl;
+    // std::cin >> end_x;
+    // std::cout << "Enter Y ending position between 0 and 100:" << std::endl;
+    // std::cin >> end_y;
+    std::cout << "Enter Xstart Ystart Xend Yend between 0 and 100:" << std::endl;
+    std::cin >> start_x >> start_y >> end_x >> end_y; 
+    start_x = (start_x < 0) ? 0 : ((start_x > 100) ? 100 : start_x);  
+    start_y = (start_y < 0) ? 0 : ((start_y > 100) ? 100 : start_y);  
+    end_x = (end_x < 0) ? 0 : ((end_x > 100) ? 100 : end_x);  
+    end_y = (end_y < 0) ? 0 : ((end_y > 100) ? 100 : end_y);  
 
-
-    ///////////////////////////////////////////////////////////////
-    //Part2: A RouteModel object is created to store the OSM data in usable data structures.
-    ///////////////////////////////////////////////////////////////
     // Build Model.
     RouteModel model{osm_data};
 
-
-    ///////////////////////////////////////////////////////////////
-    //Part3:
-    // A RoutePlanner object is created using the RouteModel.
-    // This planner will eventually carry out the A* search on the model data
-    // and store the search results in the RouteModel.
-    ///////////////////////////////////////////////////////////////
     // Perform search and render results.
-    RoutePlanner route_planner{model, 10, 10, 90, 90};
+    RoutePlanner route_planner{model, start_x, start_y, end_x, end_y};
 
+    //Perform A* search
+    route_planner.AStarSearch();
 
-    ///////////////////////////////////////////////////////////////
-    //Part4: The RouteModel data is rendered using the IO2D library. Have a look at the video below for a brief overview of this file:
-    ///////////////////////////////////////////////////////////////
+    //display distance
+    std::cout << "Distance of the path found is " << route_planner.GetDistance() << "m" << std::endl;
+
     Render render{model};
 
     auto display = io2d::output_surface{400, 400, io2d::format::argb32, io2d::scaling::none, io2d::refresh_style::fixed, 30};

@@ -1,9 +1,5 @@
 #pragma once
-/*
-These files contain a class stub for a RoutePlanner class which accepts a RouteModel along with start and end coordinates.
-The RouteModel data, along with the start and end points will be used for A* search,
-which will be implemented in these files. Have a look a the video below for a brief overview of the contents.
-*/
+
 #include <iostream>
 #include <vector>
 #include <string>
@@ -13,9 +9,37 @@ which will be implemented in these files. Have a look a the video below for a br
 class RoutePlanner {
   public:
     RoutePlanner(RouteModel &model, float start_x, float start_y, float end_x, float end_y);
-    // Add public variables or methods declarations here.
+
+    //A* Search
+    void AStarSearch();
+
+    //Get found solution distance
+    float GetDistance() const { return distance; }
 
   private:
-    // Add private variables or methods declarations here.
+    // OSM model augmented to performed A*
     RouteModel &m_Model;
+
+    //Start and end Nodes of the search
+    RouteModel::Node *start_node, *end_node;
+
+    //Found route distance
+    float distance;
+
+    //List of open Nodes used uding search
+    std::vector<RouteModel::Node *> open_list;
+
+    //Rebuild path from last Node, from parent to parent until reaching start node
+    std::vector<RouteModel::Node> ConstructFinalPath(RouteModel::Node *current_node);
+
+    //Compute H Value of specific Node
+    //  (Heuristic is distance to end node)
+    float CalculateHValue(const RouteModel::Node node);
+
+    //From the list of open Nodes, find the one with lowest F-value
+    //  F is H(heuristic) + G(current weight)
+    RouteModel::Node * NextNode();
+
+    //Add new neigbor to node's list (and update its h/g/parent)
+    void AddNeighbors(RouteModel::Node *newNode);
 };

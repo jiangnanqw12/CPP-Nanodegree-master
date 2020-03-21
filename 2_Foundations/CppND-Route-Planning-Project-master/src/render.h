@@ -1,11 +1,5 @@
 #pragma once
 
-/*
-render.h and render.cpp
-These files from the IO2D example code take model data and render it on a map.
-We have modified these files slightly to include three extra methods which render the start point, end point, and path from the A* search.
-You won't need to work too much with these files, but you will uncomment the code to render the results of your search at some point.
-*/
 #include <unordered_map>
 #include <io2d.h>
 #include "route_model.h"

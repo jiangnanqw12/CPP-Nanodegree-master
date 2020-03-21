@@ -1,45 +1,74 @@
 #pragma once
-/*
-route_model.h and route_model.cpp
-These files contain class stubs which will be used to extend the Model and Node data structures
-from model.h and model.cpp using "class inheritance".
 
-Remember that inheritance in this case will you
-to use all of the PUBLIC methods and attributes of the Model and Node classes in the derived classes.
-You will be filling out the classes in route_model.h and route_model.cpp over the course of your project.
-
-*/
 #include <limits>
 #include <cmath>
 #include <unordered_map>
 #include "model.h"
 #include <iostream>
+#include <vector>
 
 class RouteModel : public Model {
 
   public:
+
+    //A* Enabled Nodes
     class Node : public Model::Node {
       public:
-        // Add public Node variables and methods here.
+        //previous Node in chain
+        RouteModel::Node* parent = nullptr;
+        //Heuristics distance and cost from start
+        float h_value = std::numeric_limits<float>::max();
+        float g_value = 0.f;
+        //Was node already visited
+        bool visited = false;
+        //List of contiguous nodes
+        std::vector<RouteModel::Node *> neighbors;
         
+        //Node constructor extending OSM nodes
         Node(){}
-        Node(int idx, RouteModel * search_model, Model::Node node) : Model::Node(node), parent_model(search_model), index(idx) {}
+        Node(int idx, RouteModel* search_model, Model::Node node) : 
+            Model::Node(node), 
+            parent_model(search_model), 
+            index(idx) {}
+
+        //Distance computation from another Node
+        float distance(const Model::Node &otherNode) const;
+
+        //Populate the neighbors vector of this node 
+        //   (closest nodes on all roads this node is on)
+        void FindNeighbors();
       
       private:
-        // Add private Node variables and methods here.
+        //Node index in list & parent reference
         int index;
-        RouteModel * parent_model = nullptr;
+        RouteModel* parent_model = nullptr;
+
+        //Find closest Node in a list from current
+        RouteModel::Node* FindNeighbor(std::vector<int> node_indices);
     };
     
-    // Add public RouteModel variables and methods here.
-    RouteModel(const std::vector<std::byte> &xml);  
-    std::vector<Node> path; // This variable will eventually store the path that is found by the A* search.
-    std::vector<Node> &sNodes()
-    {
-      return m_Nodes;
-    }
+    //Route model constructor
+    RouteModel(const std::vector<std::byte> &xml);
+
+    //Reverse map getter (used for test)
+    auto &GetNodeToRoadMap() { return node_to_road; }
+
+    //Path that is found by the A* search.  
+    std::vector<Node> path; 
+
+    //Getter for the private nodes vector
+    std::vector<RouteModel::Node> &SNodes() { return m_Nodes; }
+
+    //Find closest valid node from user input
+    RouteModel::Node &FindClosestNode(float x, float y);
+
   private:
-    // Add private RouteModel variables and methods here.
-    std::vector<Node> m_Nodes;
-    
+    //Building of the reverse map
+    void CreateNodeToRoadHashmap(void);
+
+    //List of A* enabled Nodes
+    std::vector<RouteModel::Node> m_Nodes;
+
+    //Reverse map of NodeID -> Road to help the graph search
+    std::unordered_map <int, std::vector<const Model::Road *>> node_to_road;
 };
