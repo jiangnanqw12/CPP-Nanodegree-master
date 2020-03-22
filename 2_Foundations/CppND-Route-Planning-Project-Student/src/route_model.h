@@ -14,6 +14,7 @@ You will be filling out the classes in route_model.h and route_model.cpp over th
 #include <unordered_map>
 #include "model.h"
 #include <iostream>
+#include <vector>
 
 class RouteModel : public Model
 {
@@ -50,4 +51,6 @@ public:
 private:
   // Add private RouteModel variables and methods here.
   std::vector<Node> m_Nodes;
+  std::unordered_map<int, std::vector<const RouteModel::Node *>> node_to_road;
+  void CreateNodeToRoadHashmap();
 };
