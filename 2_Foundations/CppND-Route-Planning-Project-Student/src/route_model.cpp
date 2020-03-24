@@ -10,6 +10,7 @@ RouteModel::RouteModel(const std::vector<std::byte> &xml) : Model(xml)
         count++;
         this->m_Nodes.emplace_back(n1);
     }
+    CreateNodeToRoadHashmap();
 }
 float RouteModel::Node::distance(Node node) const
 {
@@ -18,10 +19,37 @@ float RouteModel::Node::distance(Node node) const
 
 void RouteModel::CreateNodeToRoadHashmap()
 {
-    for (const Model::Road &road : this->Roads())
+    for (const Model::Road &road : Roads())
     {
-        if (road.type != Modle::Road::Type::Footway)
+        if (road.type != Model::Road::Type::Footway)
         {
+            for (int nodeIDX : Ways()[road.way].nodes)
+            {
+                if (this->node_to_road.find(nodeIDX) == this->node_to_road.end())
+                {
+                    this->node_to_road[nodeIDX] = std::vector<const Model::Road *>{};
+                }
+                this->node_to_road[nodeIDX].push_back(&road);
+            }
         }
     }
+}
+RouteModel::Node *RouteModel::Node::FindNeighbor(std::vector<int> node_indices)
+{
+    Node *closet_node = nullptr;
+    //這裡不能單純用 this->SNodes() 因為現在 FindNeighbor() 是定義在在 Node class 理
+    //因此 this 指的是Node, 此時this 不是 RouteModel address
+    RouteModel::Node node;
+    for (int node_indix : node_indices)
+    {
+        node = parent_model->SNodes[node_indix];
+        if (distance(node) != 0.0 && visited == false)
+        {
+            if (closet_node == nullptr || distance(node) < distance(*closet_node))
+            {
+                closet_node = &(parent_model->SNodes[node_indix]);
+            }
+        }
+    }
+    return closet_node;
 }

@@ -1,7 +1,6 @@
 #include "route_model.h"
 #include <iostream>
 
-
 /*
 在07_The_Node_Class 裡面, 已經把RouteModel 內部成員都寫好了
 現在可以來創建一個model
@@ -53,7 +52,6 @@ These RouteModel::Node objects will then be stored in the m_Nodes vector of the 
 
 */
 
-
 /*
 To complete this exercise:
     1.In the RouteModel constructor in route_model.cpp, write a for loop with a counter
@@ -75,9 +73,10 @@ The last argument is given by the Model::Node in the for loop.
 //Note:
 // xml is the open street map data.
 //constructor
-RouteModel::RouteModel(const std::vector<std::byte> &xml) : Model(xml) {
+RouteModel::RouteModel(const std::vector<std::byte> &xml) : Model(xml)
+{
 
-/*
+    /*
 //因為他是用initialization list 的方式寫的, 進到這裡(Body) 時, Model 已經 initial 好了
 也就是說, Model 理的Node 也都存好xml 的data 了
 
@@ -101,11 +100,11 @@ Node(int idx, RouteModel * search_model, Model::Node node)
 
     //小心, 即使用auto ,也要加&, 不如好好寫清楚
     //auto& con_m_Nodes = this->SNodes();
-    std::vector<RouteModel::Node>& routemodel_m_Nodes = this->SNodes();
-    const std::vector<Model::Node>& model_m_Nodes = this->Nodes();//const 也要記得寫上, 不然收不了 this->Nodes
+    std::vector<RouteModel::Node> &routemodel_m_Nodes = this->SNodes();
+    const std::vector<Model::Node> &model_m_Nodes = this->Nodes(); //const 也要記得寫上, 不然收不了 this->Nodes
 
-
-    for (int i =0; i < model_m_Nodes.size();++i){
+    for (int i = 0; i < model_m_Nodes.size(); ++i)
+    {
         //拿出Model 中已經塞好的Node
         //auto& Modelnode = this->Nodes()[i];
         Model::Node Modelnode = model_m_Nodes[i];
@@ -121,7 +120,6 @@ Node(int idx, RouteModel * search_model, Model::Node node)
         // 但在class 內部, method, constructor 是可以直接內部操作的, 不然你怎寫method 讓別人拿這個變數
         //m_Nodes.push_back(newnode);
         //std::cout<<"size: "<<m_Nodes.size()<<"\n";
-
     }
 
     /*
@@ -134,9 +132,7 @@ Node(int idx, RouteModel * search_model, Model::Node node)
     */
 
     CreateNodeToRoadHashmap();
-
 }
-
 
 /*
 我想知道, 每個node, 各自有可能出現在哪些road 中
@@ -161,17 +157,20 @@ road Residential, road Motorway, road Trunk...
 
 */
 
-void RouteModel::CreateNodeToRoadHashmap(){
+void RouteModel::CreateNodeToRoadHashmap()
+{
 
     //get m_Roads from Model method
-    const std::vector<Model::Road>& loc_m_Roads = this->Roads();
-    const std::vector<Model::Way>& loc_m_Ways = this->Ways();
+    const std::vector<Model::Road> &loc_m_Roads = this->Roads();
+    const std::vector<Model::Way> &loc_m_Ways = this->Ways();
 
     //Write a loop that iterates through the vector given by calling Roads().
     // loop 過所有road
-    for (const Model::Road &road : loc_m_Roads){
+    for (const Model::Road &road : loc_m_Roads)
+    {
         //Footway 之外的 road 都看
-        if(road.type !=  Model::Road::Type::Footway ){
+        if (road.type != Model::Road::Type::Footway)
+        {
             // get all nodes which related with the roads.(except the Footway)
             // 拿到當下這個 road 當中經過的所有 node idx
             std::vector<int> nodesidx_belong_this_road = loc_m_Ways[road.way].nodes;
@@ -180,39 +179,27 @@ void RouteModel::CreateNodeToRoadHashmap(){
             //            Tertiary, Secondary, Primary, Trunk, Motorway, Footway };
 
             //把這些 nodes 全掃一遍, 就是開始build hashmap
-            for(int node_idx : nodesidx_belong_this_road){
+            for (int node_idx : nodesidx_belong_this_road)
+            {
                 //If the node index is not in the node_to_road hashmap yet,
                 //set the value for the node_idx key to be an
                 //empty vector of const Model::Road* objects.
 
                 //如果從來不再map 理, 就建一個新的, value 給一個空的vector
-                if(this->node_to_road.find(node_idx)  == this->node_to_road.end()){
+                if (this->node_to_road.find(node_idx) == this->node_to_road.end())
+                {
                     //fisrt time map this node_idx, we give it a empty vector {}
-                    this->node_to_road[node_idx] = std::vector<const Model::Road*> {};
+                    this->node_to_road[node_idx] = std::vector<const Model::Road *>{};
                 }
-
 
                 //Push a pointer to the current road in the loop to the
                 //back of the vector given by the node_idx key in node_to_road.
 
                 //統一把這個 road pointer 加給這個node_idx
                 this->node_to_road[node_idx].push_back(&road);
-
             }
         }
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
 
 //
