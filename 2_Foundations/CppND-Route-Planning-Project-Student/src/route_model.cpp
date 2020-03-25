@@ -39,17 +39,23 @@ RouteModel::Node *RouteModel::Node::FindNeighbor(std::vector<int> node_indices)
     Node *closet_node = nullptr;
     //這裡不能單純用 this->SNodes() 因為現在 FindNeighbor() 是定義在在 Node class 理
     //因此 this 指的是Node, 此時this 不是 RouteModel address
-    RouteModel::Node node;
+    Node node;
+
     for (int node_indix : node_indices)
     {
-        node = parent_model->SNodes[node_indix];
+        node = parent_model->SNodes()[node_indix];
         if (distance(node) != 0.0 && visited == false)
         {
             if (closet_node == nullptr || distance(node) < distance(*closet_node))
             {
-                closet_node = &(parent_model->SNodes[node_indix]);
+                closet_node = &(parent_model->SNodes()[node_indix]);
             }
         }
     }
     return closet_node;
+}
+
+void RouteModel::Node::FindNeighbor()
+{
+    
 }

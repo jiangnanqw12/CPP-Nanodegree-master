@@ -34,6 +34,7 @@ public:
     std::vector<Node *> neighbors;
     float distance(Node node) const;
     RouteModel::Node *FindNeighbor(std::vector<int> node_indices);
+    void FindNeighbor();
 
   private:
     // Add private Node variables and methods here.
