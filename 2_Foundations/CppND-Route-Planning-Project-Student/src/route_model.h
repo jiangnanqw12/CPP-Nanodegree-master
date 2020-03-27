@@ -32,7 +32,10 @@ public:
     float g_value = 0.0;
     bool visited = false;
     std::vector<Node *> neighbors;
-    float distance(Node node) const;
+    float distance(Node node) const
+    {
+      return std::sqrt(std::pow((node.x - x), 2) + std::pow((node.y - y), 2));
+    }
     RouteModel::Node *FindNeighbor(std::vector<int> node_indices);
     void FindNeighbor();
 
