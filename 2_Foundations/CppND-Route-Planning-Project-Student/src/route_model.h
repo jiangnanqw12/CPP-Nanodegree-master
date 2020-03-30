@@ -56,6 +56,7 @@ public:
   {
     return node_to_road;
   }
+  RouteModel::Node &FindClosestNode(float x, float y);
 
 private:
   // Add private RouteModel variables and methods here.
