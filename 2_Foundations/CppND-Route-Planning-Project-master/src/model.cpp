@@ -37,6 +37,7 @@ static Model::Landuse::Type String2LanduseType(std::string_view type)
     return Model::Landuse::Invalid;
 }
 
+//constructor
 Model::Model( const std::vector<std::byte> &xml )
 {
     LoadData(xml);
@@ -48,6 +49,7 @@ Model::Model( const std::vector<std::byte> &xml )
     });
 }
 
+//LoadData from xml, xml parser
 void Model::LoadData(const std::vector<std::byte> &xml)
 {
     using namespace pugi;
@@ -176,7 +178,8 @@ void Model::LoadData(const std::vector<std::byte> &xml)
 }
 
 void Model::AdjustCoordinates()
-{    
+{
+    //經緯度轉成 x,y  座標, 左下是 (0,0)
     const auto pi = 3.14159265358979323846264338327950288;
     const auto deg_to_rad = 2. * pi / 360.;
     const auto earth_radius = 6378137.;

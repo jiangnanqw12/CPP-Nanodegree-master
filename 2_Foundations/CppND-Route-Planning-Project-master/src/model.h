@@ -1,5 +1,13 @@
 #pragma once
 
+
+/*
+model.h and model.cpp
+These files come from the IO2D example code. They are used to define the data structures and methods that read
+in and store OSM data. OSM data is stored in a
+Model class which contains nested structs for Nodes, Ways, Roads, and other OSM objects.
+*/
+
 #include <vector>
 #include <unordered_map>
 #include <string>
