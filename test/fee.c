@@ -19,6 +19,7 @@
 原文链接：https://blog.csdn.net/weixin_44626649/article/details/88072432
 */
 #include <stdio.h>
+
 int fare(int k,int t){
     float money;
     if(k <= 3)
