@@ -1,0 +1,36 @@
+{
+    "editor.fontSize": 18,
+    "editor.minimap.maxColumn": 40,
+    "editor.wordSeparators": "`~!@#$%^&*()-=+[{]}\\|;:'\",.<>/?·～！￥…（）—【】、；：‘’“”，。《》？ ",
+    "editor.fontFamily": "'Source Code Pro', Consolas, 'Courier New', monospace",
+    "editor.suggest.localityBonus": true,
+    "window.title": "${dirty}${activeEditorLong}${separator}${rootName}${separator}${appName}",
+    "window.zoomLevel": 1,
+    "window.titleBarStyle": "custom",
+    "workbench.iconTheme": "material-icon-theme",
+    "workbench.colorTheme": "Solarized Light",
+    "workbench.sideBar.location": "right",
+    // "git.path": "/usr/bin/git",
+    // "git.autofetch": true,
+    // "git.ignoreMissingGitWarning": true,
+    // "git-assistant.checkConfigVariables": "disabled",
+    // "git-assistant.pushBeforeClosingIDE": "disabled",
+    "diffEditor.ignoreTrimWhitespace": false,
+    "http.proxyStrictSSL": false,
+    "files.trimTrailingWhitespace": true,
+    "files.autoGuessEncoding": true,
+    "files.watcherExclude": {
+        "**/.git/objects/**": true,
+        "**/.git/subtree-cache/**": true,
+        "**/node_modules/*/**": true
+    },
+    "C_Cpp.updateChannel": "Insiders",
+    "C_Cpp.default.intelliSenseMode": "gcc-x64",
+    "C_Cpp.default.includePath": [
+        "/usr/include",
+        "/usr/local/include",
+        "${workspaceFolder}/**"
+    ],
+    "terminal.integrated.fontFamily": "Hack Nerd Font",
+    "terminal.integrated.fontSize": 14
+}

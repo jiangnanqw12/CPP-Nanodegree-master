@@ -19,20 +19,23 @@
 原文链接：https://blog.csdn.net/weixin_44626649/article/details/88072432
 */
 #include <stdio.h>
-
-int fare(int k,int t){
+#include <iostream>
+int fare(int k, int t)
+{
     float money;
-    if(k <= 3)
-    {   
-        money = 14;
-    }else
+    if (k <= 3)
     {
-        if(t >= 23 || t < 5)
+        money = 14;
+    }
+    else
+    {
+        if (t >= 23 || t < 5)
         {
-            money=(k - 3) * 2 * 1.2 + 14;
-        }else
+            money = (k - 3) * 2 * 1.2 + 14;
+        }
+        else
         {
-            money=(k - 3) * 2 + 14;
+            money = (k - 3) * 2 + 14;
         }
         return money;
     }
@@ -40,7 +43,8 @@ int fare(int k,int t){
 int main()
 {
 
-    int sumfare = fare(10,20) + fare(10,6);
-    printf("总车费为%d",sumfare);
+    int sumfare = fare(10, 20) + fare(10, 6);
+    printf("总车费为%d", sumfare);
+    std::cout << "总车费为%d" << std::endl;
     return 0;
 }
