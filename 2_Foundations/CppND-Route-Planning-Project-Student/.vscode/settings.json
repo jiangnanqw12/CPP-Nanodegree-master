@@ -1,4 +1,8 @@
 {
+    "terminal.integrated.shell.windows": "C:\\Windows\\System32\\wsl.exe",
+    "editor.formatOnSave": true,
+    "editor.formatOnType": true,
+    "files.encoding": "gb2312",
     "editor.fontSize": 18,
     "editor.minimap.maxColumn": 40,
     "editor.wordSeparators": "`~!@#$%^&*()-=+[{]}\\|;:'\",.<>/?·～！￥…（）—【】、；：‘’“”，。《》？ ",
@@ -8,8 +12,8 @@
     "window.zoomLevel": 1,
     "window.titleBarStyle": "custom",
     "workbench.iconTheme": "material-icon-theme",
-    "workbench.colorTheme": "Solarized Dark",
-    "workbench.sideBar.location": "right",
+    "workbench.colorTheme": "Solarized Light",
+    "workbench.sideBar.location": "left",
     "diffEditor.ignoreTrimWhitespace": false,
     "http.proxyStrictSSL": false,
     "files.trimTrailingWhitespace": true,
@@ -26,6 +30,6 @@
         "/usr/local/include",
         "${workspaceFolder}/**"
     ],
-    "terminal.integrated.fontFamily": "Hack Nerd Font",
+    "terminal.integrated.fontFamily": "monospace",
     "terminal.integrated.fontSize": 14
 }
