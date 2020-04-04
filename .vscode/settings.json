@@ -1,4 +1,8 @@
 {
+    "terminal.integrated.shell.windows": "C:\\Windows\\System32\\wsl.exe",
+    "editor.formatOnSave": true,
+    "editor.formatOnType": true,
+    "files.encoding": "gb2312",
     "editor.fontSize": 18,
     "editor.minimap.maxColumn": 40,
     "editor.wordSeparators": "`~!@#$%^&*()-=+[{]}\\|;:'\",.<>/?·～！￥…（）—【】、；：‘’“”，。《》？ ",
@@ -9,7 +13,7 @@
     "window.titleBarStyle": "custom",
     "workbench.iconTheme": "material-icon-theme",
     "workbench.colorTheme": "Solarized Light",
-    "workbench.sideBar.location": "right",
+    "workbench.sideBar.location": "left",
     "diffEditor.ignoreTrimWhitespace": false,
     "http.proxyStrictSSL": false,
     "files.trimTrailingWhitespace": true,
