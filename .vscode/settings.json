@@ -26,6 +26,6 @@
         "/usr/local/include",
         "${workspaceFolder}/**"
     ],
-    "terminal.integrated.fontFamily": "Hack Nerd Font",
+    "terminal.integrated.fontFamily": "monospace",
     "terminal.integrated.fontSize": 14
 }
