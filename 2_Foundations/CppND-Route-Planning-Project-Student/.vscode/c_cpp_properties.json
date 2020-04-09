@@ -9,7 +9,13 @@
             ],
             "compilerPath": "/usr/bin/gcc",
             "cStandard": "c11",
-            "cppStandard": "c++17"
+            "cppStandard": "c++17",
+            "includePath": [
+                "${default}",
+                "C:/Users/shade/AppData/Local/Packages/CanonicalGroupLimited.Ubuntu18.04onWindows_79rhkp1fndgsc/LocalState/rootfs/usr/local/include/io2d",
+                "C:/Users/shade/AppData/Local/Packages/CanonicalGroupLimited.Ubuntu18.04onWindows_79rhkp1fndgsc/LocalState/rootfs/usr/include/cairo"
+            ],
+            "intelliSenseMode": "clang-x64"
         }
     ],
     "version": 4
