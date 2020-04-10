@@ -12,7 +12,7 @@
     "window.zoomLevel": 1,
     "window.titleBarStyle": "custom",
     "workbench.iconTheme": "material-icon-theme",
-    "workbench.colorTheme": "Solarized Light",
+    "workbench.colorTheme": "Solarized Dark+",
     "workbench.sideBar.location": "left",
     "diffEditor.ignoreTrimWhitespace": false,
     "http.proxyStrictSSL": false,
@@ -32,5 +32,8 @@
     ],
     "terminal.integrated.fontFamily": "monospace",
     "terminal.integrated.fontSize": 14,
-    "cmake.configureOnOpen": false
+    "cmake.configureOnOpen": false,
+    "files.associations": {
+        "iostream": "cpp"
+    }
 }
