@@ -3,13 +3,22 @@
 //student
 RouteModel::RouteModel(const std::vector<std::byte> &xml) : Model(xml)
 {
-    int count = 0;
-    for (auto i : this->Nodes())
+    int counter = 0;
+    std::vector<RouteModel::Node> con_m_Nodes = this->SNodes();
+    for (Model::Node node : this->Nodes())
     {
-        Node n1(count, this, i);
-        count++;
-        this->m_Nodes.emplace_back(n1);
+        Node n1(counter, this, node);
+        counter++;
+        con_m_Nodes.push_back(n1);
     }
+
+    // int counter = 0;
+    // auto &con_m_Nodes = this->SNodes();
+    // for (auto node : this->Nodes())
+    // {
+    //     con_m_Nodes.emplace_back(Node(counter, this, node));
+    //     counter++;
+    // }
     CreateNodeToRoadHashmap();
 }
 
