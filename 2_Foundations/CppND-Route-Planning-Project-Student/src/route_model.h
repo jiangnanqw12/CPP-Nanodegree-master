@@ -66,7 +66,7 @@ public:
 
 private:
   // Add private RouteModel variables and methods here.
-  std::vector<Node> m_Nodes;
+  std::vector<Node> m_Nodes; //This will store all of the nodes from the Open Street Map data.
   std::unordered_map<int, std::vector<const Model::Road *>> node_to_road;
   void CreateNodeToRoadHashmap();
 };
