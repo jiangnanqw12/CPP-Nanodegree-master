@@ -8,8 +8,8 @@
     "window.zoomLevel": 1,
     "window.titleBarStyle": "custom",
     "workbench.iconTheme": "material-icon-theme",
-    "workbench.colorTheme": "Solarized Dark",
-    "workbench.sideBar.location": "right",
+    "workbench.colorTheme": "Solarized Dark+",
+    "workbench.sideBar.location": "left",
     "diffEditor.ignoreTrimWhitespace": false,
     "http.proxyStrictSSL": false,
     "files.trimTrailingWhitespace": true,
@@ -26,6 +26,5 @@
         "/usr/local/include",
         "${workspaceFolder}/**"
     ],
-    "terminal.integrated.fontFamily": "Hack Nerd Font",
-    "terminal.integrated.fontSize": 14
+    "terminal.integrated.fontSize": 16
 }
