@@ -25,8 +25,14 @@ public:
   public:
     // Add public Node variables and methods here.
 
-    Node() {}
-    Node(int idx, RouteModel *search_model, Model::Node node) : Model::Node(node), parent_model(search_model), index(idx) {}
+    Node()
+    {
+      std::cout << "RouteModel Init"
+                << "\n";
+    }
+    Node(int idx, RouteModel *search_model, Model::Node node) : Model::Node(node), parent_model(search_model), index(idx)
+    {
+    }
     Node *parent = nullptr;
     float h_value = std::numeric_limits<float>::max();
     float g_value = 0.0;
@@ -60,7 +66,7 @@ public:
 
 private:
   // Add private RouteModel variables and methods here.
-  std::vector<Node> m_Nodes;
+  std::vector<Node> m_Nodes; //This will store all of the nodes from the Open Street Map data.
   std::unordered_map<int, std::vector<const Model::Road *>> node_to_road;
   void CreateNodeToRoadHashmap();
 };

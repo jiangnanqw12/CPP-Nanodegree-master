@@ -12,7 +12,7 @@
     "window.zoomLevel": 1,
     "window.titleBarStyle": "custom",
     "workbench.iconTheme": "material-icon-theme",
-    "workbench.colorTheme": "Solarized Dark+",
+    "workbench.colorTheme": "Solarized Light",
     "workbench.sideBar.location": "left",
     "diffEditor.ignoreTrimWhitespace": false,
     "http.proxyStrictSSL": false,

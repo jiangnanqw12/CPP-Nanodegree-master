@@ -24,7 +24,7 @@ Compiling and Running
 			../bin/<name-of-parent-directory> -f ../map.osm
 
 
-			=> jerry:build$    ../bin/CppND-Route-Planning-Project-master -f ../map.osm 
+			=> jerry:build$    ../bin/CppND-Route-Planning-Project-master -f ../map.osm
 
 
 ===================
