@@ -43,7 +43,7 @@ public:
       return std::sqrt(std::pow((node.x - x), 2) + std::pow((node.y - y), 2));
     }
     RouteModel::Node *FindNeighbor(std::vector<int> node_indices);
-    void FindNeighbor();
+    void FindNeighbors();
 
   private:
     // Add private Node variables and methods here.

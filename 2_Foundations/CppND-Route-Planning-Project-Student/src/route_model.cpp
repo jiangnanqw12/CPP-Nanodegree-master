@@ -60,7 +60,7 @@ RouteModel::Node *RouteModel::Node::FindNeighbor(std::vector<int> node_indices)
     return closest_node;
 }
 
-void RouteModel::Node::FindNeighbor()
+void RouteModel::Node::FindNeighbors()
 {
     Node *neighbor;
     for (auto &road : parent_model->node_to_road[this->index])
