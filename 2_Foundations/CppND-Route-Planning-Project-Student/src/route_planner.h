@@ -24,4 +24,5 @@ private:
   RouteModel ::Node *end_node;
   float total_dist;
   std::vector<RouteModel::Node> ConstructFinalPath(RouteModel::Node *current_node);
+  float CalculateHValue(const RouteModel::Node *node);
 };
