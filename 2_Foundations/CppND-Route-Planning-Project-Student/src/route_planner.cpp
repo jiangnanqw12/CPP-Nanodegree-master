@@ -34,3 +34,29 @@ void RoutePlanner::AStarSearch()
     end_node->parent = start_node;
     m_Model.path = ConstructFinalPath(end_node);
 }
+float RoutePlanner::CalculateHValue(const RouteModel::Node *node)
+{
+    return node->distance(*end_node);
+}
+RouteModel::Node *RoutePlanner::NextNode()
+{
+    // RouteModel::Node *next_node;
+    // float f_value_min = std::numeric_limits<float>::max();
+    // for (RouteModel::Node *node : open_list)
+    // {
+    //     if ((node->g_value + node->h_value) < f_value_min)
+    //     {
+    //         f_value_min = node->g_value + node->h_value;
+    //         next_node = node;
+    //     }
+    // }
+
+    // return next_node;
+
+    std::sort(open_list.begin(), open_list.end(), [](const auto &a, const auto &b) {
+        return a->h_value + a->g_value < b->h_value + b->g_value;
+    });
+    RouteModel::Node *next_node = open_list.front();
+    open_list.erase(open_list.begin());
+    return next_node;
+}

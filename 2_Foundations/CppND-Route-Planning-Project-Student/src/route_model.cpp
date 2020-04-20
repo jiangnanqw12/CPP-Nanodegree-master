@@ -4,7 +4,7 @@
 RouteModel::RouteModel(const std::vector<std::byte> &xml) : Model(xml)
 {
     int counter = 0;
-
+    // std::vector<RouteModel::Node> con_m_Nodes = this->SNodes();
     for (Model::Node node : this->Nodes())
     {
         Node n1(counter, this, node);
