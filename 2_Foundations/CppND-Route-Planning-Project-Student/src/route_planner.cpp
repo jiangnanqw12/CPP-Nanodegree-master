@@ -54,7 +54,7 @@ RouteModel::Node *RoutePlanner::NextNode()
     // return next_node;
 
     std::sort(open_list.begin(), open_list.end(), [](const auto &a, const auto &b) {
-        return a->h_value + a->g_value < b->h_value + b->g_value;
+        return a->g_value + a->h_value < b->g_value + b->h_value;
     });
     RouteModel::Node *next_node = open_list.front();
     open_list.erase(open_list.begin());

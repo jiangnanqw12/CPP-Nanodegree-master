@@ -13,7 +13,9 @@
             "includePath": [
                 "${default}",
                 "C:/Users/shade/AppData/Local/Packages/CanonicalGroupLimited.Ubuntu18.04onWindows_79rhkp1fndgsc/LocalState/rootfs/usr/local/include/io2d",
-                "C:/Users/shade/AppData/Local/Packages/CanonicalGroupLimited.Ubuntu18.04onWindows_79rhkp1fndgsc/LocalState/rootfs/usr/include/cairo"
+                "C:/Users/shade/AppData/Local/Packages/CanonicalGroupLimited.Ubuntu18.04onWindows_79rhkp1fndgsc/LocalState/rootfs/usr/include/cairo",
+                "C:/Users/38296/AppData/Local/Packages/CanonicalGroupLimited.UbuntuonWindows_79rhkp1fndgsc/LocalState/rootfs/usr/local/include/io2d",
+                "C:/Users/38296/AppData/Local/Packages/CanonicalGroupLimited.UbuntuonWindows_79rhkp1fndgsc/LocalState/rootfs/usr/include/cairo"
             ],
             "intelliSenseMode": "clang-x64"
         }
