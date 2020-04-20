@@ -3,14 +3,14 @@
 //student
 RouteModel::RouteModel(const std::vector<std::byte> &xml) : Model(xml)
 {
-    // int counter = 0;
-    // std::vector<RouteModel::Node> con_m_Nodes = this->SNodes();
-    // for (Model::Node node : this->Nodes())
-    // {
-    //     Node n1(counter, this, node);
-    //     counter++;
-    //     con_m_Nodes.push_back(n1);
-    // }
+    int counter = 0;
+
+    for (Model::Node node : this->Nodes())
+    {
+        Node n1(counter, this, node);
+        counter++;
+        this->SNodes().push_back(n1);
+    }
 
     // int counter = 0;
     // auto &con_m_Nodes = this->SNodes();
@@ -60,7 +60,7 @@ RouteModel::Node *RouteModel::Node::FindNeighbor(std::vector<int> node_indices)
     return closest_node;
 }
 
-void RouteModel::Node::FindNeighbor()
+void RouteModel::Node::FindNeighbors()
 {
     Node *neighbor;
     for (auto &road : parent_model->node_to_road[this->index])
