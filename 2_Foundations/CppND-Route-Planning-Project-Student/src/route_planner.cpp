@@ -60,3 +60,15 @@ RouteModel::Node *RoutePlanner::NextNode()
     open_list.erase(open_list.begin());
     return next_node;
 }
+void RoutePlanner::AddNeighbors(RouteModel::Node *current_node)
+{
+    current_node->RouteModel::Node::FindNeighbors();
+    for (auto neighbor : current_node->neighbors)
+    {
+        neighbor->parent = current_node;
+        neighbor->g_value = current_node->g_value + neighbor->distance(*current_node);
+        neighbor->h_value = CalculateHValue(neighbor);
+        open_list.push_back(neighbor);
+        neighbor->visited = true;
+    }
+}
