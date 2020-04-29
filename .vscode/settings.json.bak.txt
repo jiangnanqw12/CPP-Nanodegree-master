@@ -1,7 +1,22 @@
 {
+    "python.pythonPath": "C:\\ProgramData\\Anaconda3\\pythonw.exe",
+    "git.ignoreMissingGitWarning": true,
+    "C_Cpp.updateChannel": "Insiders",
+    "[cpp]": {
+        "editor.defaultFormatter": "ms-vscode.cpptools"
+    },
+    "workbench.statusBar.visible": true,
+    "workbench.sideBar.location": "left",
+    "workbench.activityBar.visible": true,
+    "editor.minimap.enabled": false,
+    "diffEditor.ignoreTrimWhitespace": false,
     "terminal.integrated.shell.windows": "C:\\Windows\\System32\\wsl.exe",
+    "http.proxySupport": "off",
     "editor.formatOnSave": true,
     "editor.formatOnType": true,
+    "editor.formatOnPaste": true,
+    "workbench.iconTheme": "material-icon-theme",
+    "workbench.colorTheme": "Solarized Dark+",
     "files.encoding": "gb2312",
     "editor.fontSize": 18,
     "editor.minimap.maxColumn": 40,
@@ -11,10 +26,6 @@
     "window.title": "${dirty}${activeEditorLong}${separator}${rootName}${separator}${appName}",
     "window.zoomLevel": 1,
     "window.titleBarStyle": "custom",
-    "workbench.iconTheme": "material-icon-theme",
-    "workbench.colorTheme": "Solarized Dark+",
-    "workbench.sideBar.location": "left",
-    "diffEditor.ignoreTrimWhitespace": false,
     "http.proxyStrictSSL": false,
     "files.trimTrailingWhitespace": true,
     "files.autoGuessEncoding": true,
@@ -22,12 +33,5 @@
         "**/.git/objects/**": true,
         "**/.git/subtree-cache/**": true,
         "**/node_modules/*/**": true
-    },
-    "C_Cpp.updateChannel": "Insiders",
-    "C_Cpp.default.intelliSenseMode": "gcc-x64",
-    "C_Cpp.default.includePath": [
-        "/usr/include",
-        "/usr/local/include",
-        "${workspaceFolder}/**"
-    ]
+    }
 }
