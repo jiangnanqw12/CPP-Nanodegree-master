@@ -40,6 +40,41 @@ Steps 3-
 */
 #include <iostream>
 int *createArr(int array_size);
+int *changeArr(int *ptr, int change_size, int array_size);
 int main()
 {
+    int array_size;
+    std::cin >> array_size;
+    int *ptr = createArr(array_size);
+    for (int i = 0; i < array_size; i++)
+    {
+        ptr[i] = i * i + 1;
+    }
+    int *new_ptr = changeArr(ptr, 2, array_size);
+    for (int i = 0; i < array_size; i++)
+    {
+        std::cout << new_ptr[i] << " ";
+    }
+    delete[] new_ptr; //delete[] 删除 struct
+    std::cout << std::endl;
+    for (int i = 0; i < array_size; i++)
+    {
+        std::cout << new_ptr[i] << " ";
+    }
+}
+int *createArr(int array_size)
+{
+    int *ptr = new int[array_size]; //[] 数组
+    return ptr;
+}
+int *changeArr(int *ptr, int change_size, int array_size)
+{
+    int *new_ptr = new int[change_size + array_size];
+    for (int i = 0; i < array_size; i++)
+    {
+        new_ptr[i] = ptr[i];
+    }
+
+    delete[] ptr;
+    return new_ptr;
 }

@@ -17,17 +17,17 @@ Steps
     Free taken memory from the heap
     Exit script
 */
-#include<iostream>
+#include <iostream>
 
-int main(){
+int main()
+{
     int *ptr = nullptr;
     ptr = new int(10);
 
     std::cout << "memory address:" << ptr << std::endl;
     std::cout << "memory address value:" << *ptr << std::endl;
-
+    std::cout << sizeof(ptr);
     delete ptr;
 
     return 0;
-
 }

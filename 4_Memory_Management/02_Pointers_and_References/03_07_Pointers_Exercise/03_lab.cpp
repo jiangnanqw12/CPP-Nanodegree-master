@@ -42,50 +42,60 @@ Steps 3
 
 #include <iostream>
 
-int* createArr(int n) {
+int *createArr(int n)
+{
     int *ptr = new int[n];
     return ptr;
 }
 
-int* resizeArr(int* ptr,int _size, int exValue) {
+int *resizeArr(int *ptr, int _size, int exValue)
+{
     int *newPtr = new int[_size + exValue];
 
-    for (int i = 0; i < _size; i++ ){
+    for (int i = 0; i < _size; i++)
+    {
         newPtr[i] = ptr[i];
     }
-    delete [] ptr;
+    delete[] ptr;
     return newPtr;
 }
 
-int main () {
+int main()
+{
 
-int _size;
-std:: cout<< "Size of array: " << std::endl;
-std::cin >>_size;
+    int _size;
+    std::cout << "Size of array: " << std::endl;
+    std::cin >> _size;
     int *ptr = createArr(_size);
-    std::cout<< "ptr addr: "<< ptr << std::endl;
+    std::cout << "ptr addr: " << ptr << std::endl;
     //assign value
-    for(int i=0;i<_size;i++){
+    for (int i = 0; i < _size; i++)
+    {
 
-        ptr[i] = i*i;
+        ptr[i] = i * i;
     }
     //show result
-    std::cout << "Created array: "<<std::endl;
-    for(int i=0;i<_size;i++){
-        std::cout<< ptr[i] << std::endl;
+    std::cout << "Created array: " << std::endl;
+    for (int i = 0; i < _size; i++)
+    {
+        std::cout << ptr[i] << std::endl;
     }
 
-    
-    std::cout<< "Expand value: ";
+    std::cout << "Expand value: ";
     int expandVal;
     std::cin >> expandVal;
     ptr = resizeArr(ptr, _size, expandVal);
-    std::cout<< "ptr addr: "<< ptr << std::endl;
+    std::cout << "ptr addr: " << ptr << std::endl;
 
-    std::cout<< "Expanded array: " << std::endl;
-    for(int i=0;i<(_size +expandVal);i++){
-        std::cout<< ptr[i] << std::endl;
+    std::cout << "Expanded array: " << std::endl;
+    for (int i = 0; i < (_size + expandVal); i++)
+    {
+        std::cout << ptr[i] << std::endl;
     }
-    delete [] ptr;
+    delete[] ptr;
+    for (int i = 0; i < (_size + expandVal); i++)
+    {
+        std::cout << ptr[i] << std::endl;
+    }
     return 0;
 }
