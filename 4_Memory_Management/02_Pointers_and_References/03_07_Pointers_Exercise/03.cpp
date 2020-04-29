@@ -12,8 +12,7 @@ Second one is going to be "resizeArr" which will resize our array and preserve o
 For the purpose of this example, to preserve simplicity we will only allow to expand
 our array to specified number of places.
 
-Steps 3
-    include standard library iostream
+Steps 3-
     Declare createArr function. Its input parameters are just integer value
         which represent size of array.
     return type of this function is going to be pointer to integer values.
@@ -39,63 +38,43 @@ Steps 3
     Expand our array with second function
     Print expanded array
 */
-
 #include <iostream>
-
-int *createArr(int n)
-{
-    int *ptr = new int[n];
-    return ptr;
-}
-
-int *resizeArr(int *ptr, int _size, int exValue)
-{
-    int *newPtr = new int[_size + exValue];
-
-    for (int i = 0; i < _size; i++)
-    {
-        newPtr[i] = ptr[i];
-    }
-    delete[] ptr;
-    return newPtr;
-}
-
+int *createArr(int array_size);
+int *changeArr(int *ptr, int change_size, int array_size);
 int main()
 {
-
-    int _size;
-    std::cout << "Size of array: " << std::endl;
-    std::cin >> _size;
-    int *ptr = createArr(_size);
-    std::cout << "ptr addr: " << ptr << std::endl;
-    //assign value
-    for (int i = 0; i < _size; i++)
+    int array_size;
+    std::cin >> array_size;
+    int *ptr = createArr(array_size);
+    for (int i = 0; i < array_size; i++)
     {
-
-        ptr[i] = i * i;
+        ptr[i] = i * i + 1;
     }
-    //show result
-    std::cout << "Created array: " << std::endl;
-    for (int i = 0; i < _size; i++)
+    int *new_ptr = changeArr(ptr, 2, array_size);
+    for (int i = 0; i < array_size; i++)
     {
-        std::cout << ptr[i] << std::endl;
+        std::cout << new_ptr[i] << " ";
     }
-
-    std::cout << "Expand value: ";
-    int expandVal;
-    std::cin >> expandVal;
-    ptr = resizeArr(ptr, _size, expandVal);
-    std::cout << "ptr addr: " << ptr << std::endl;
-
-    std::cout << "Expanded array: " << std::endl;
-    for (int i = 0; i < (_size + expandVal); i++)
+    delete[] new_ptr; //delete[] 删除 struct
+    std::cout << std::endl;
+    for (int i = 0; i < array_size; i++)
     {
-        std::cout << ptr[i] << std::endl;
+        std::cout << new_ptr[i] << " ";
     }
+}
+int *createArr(int array_size)
+{
+    int *ptr = new int[array_size]; //[] 数组
+    return ptr;
+}
+int *changeArr(int *ptr, int change_size, int array_size)
+{
+    int *new_ptr = new int[change_size + array_size];
+    for (int i = 0; i < array_size; i++)
+    {
+        new_ptr[i] = ptr[i];
+    }
+
     delete[] ptr;
-    for (int i = 0; i < (_size + expandVal); i++)
-    {
-        std::cout << ptr[i] << std::endl;
-    }
-    return 0;
+    return new_ptr;
 }

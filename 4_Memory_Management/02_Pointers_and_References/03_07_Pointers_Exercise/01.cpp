@@ -23,11 +23,7 @@ int main()
 {
     int *ptr = nullptr;
     ptr = new int(10);
-
-    std::cout << "memory address:" << ptr << std::endl;
-    std::cout << "memory address value:" << *ptr << std::endl;
-    std::cout << sizeof(ptr);
+    std::cout << ptr << std::endl;
+    std::cout << *ptr << std::endl;
     delete ptr;
-
-    return 0;
 }
