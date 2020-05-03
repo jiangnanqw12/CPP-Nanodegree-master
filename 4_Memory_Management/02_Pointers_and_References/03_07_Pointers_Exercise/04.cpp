@@ -39,14 +39,28 @@ Steps
     Test that all member functions in class List behave properly, even if the list is empty
 
 */
+
+template <class T>
+class Node
+{
+public:
+    Node(T _value, Node *previous_node, Node *next_node);
+
+    T value;
+
+private:
+    Node *previous_node;
+    Node *next_node;
+};
+template <class T>
 class List
 {
-    class Node
-    {
-        Node();
-    };
-    Node *ptr2head;
-    List();
+public:
+    List() : ptr2head(nullptr), ptr2tail(nullptr){};
+
+    Node<T> *ptr2head;
+    Node<T> *ptr2tail;
+
     void destructor();
     void PushFront();
     void PushBack();
@@ -55,24 +69,32 @@ class List
     void Size();
     bool empty();
 };
-void List::destructor()
+int main()
 {
 }
-void List::PushFront()
+template <class T>
+void List<T>::destructor()
 {
 }
-void List::PushBack()
+template <class T>
+void List<T>::PushFront()
 {
 }
-void List::PopFront()
+template <class T>
+void List<T>::PushBack()
 {
 }
-void List::PopBack()
+template <class T>
+void List<T>::PopFront()
 {
 }
-void List::Size()
+template <class T>
+void List<T>::PopBack()
 {
 }
-bool List::empty()
+template <class T>
+void List<T>::Size()
 {
 }
+template <class T>
+bool List<T>::empty() {}
