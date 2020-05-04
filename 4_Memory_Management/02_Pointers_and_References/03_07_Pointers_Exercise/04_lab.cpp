@@ -44,96 +44,115 @@ Steps
 #include <string>
 //in template
 
-
-template<class T>
-class Node {
+template <class T>
+class Node
+{
 public:
-
-    Node(T val, Node *prev_node, Node *next_n):
-        value(val), previous_node(prev_node),next_node(next_n){}
-//private:
+    Node(T val, Node *prev_node, Node *next_n) : value(val), previous_node(prev_node), next_node(next_n) {}
+    //private:
     T value;
     Node *previous_node;
     Node *next_node;
 };
 
-template<class T>
-class List{
+template <class T>
+class List
+{
 
 public:
-    List(): head(nullptr), tail(nullptr){}
+    List() : head(nullptr), tail(nullptr) {}
     ~List();
 
     void PushFront(T);
     void PushBack(T);
     T PopFront();
     T PopBack();
-    bool Empty() const { return (head == nullptr);}
+    bool Empty() const { return (head == nullptr); }
     int Size() const;
 
 private:
-
     Node<T> *head;
     Node<T> *tail;
-
 };
 
-template<class T>
-List<T>::~List(){
+template <class T>
+List<T>::~List()
+{
     //其實可以直接用 head, 不用加 List<T>, 因為是在自己的class function 中
-    while ( List<T>::head != nullptr ){
-        Node<T> *tmp =  List<T>::head;
+    while (List<T>::head != nullptr)
+    {
+        Node<T> *tmp = List<T>::head;
         List<T>::head = List<T>::head->next_node;
         delete tmp;
     }
-
 }
 
+template <class T>
+void List<T>::PushBack(T val)
+{
 
-template<class T>
-void List<T>::PushBack(T val){
+    List<T>::tail = new Node<T>(val, List<T>::tail, nullptr);
 
-     List<T>::tail = new Node<T>(val,List<T>::tail,nullptr);
-
-     if (List<T>::head == nullptr){
-         List<T>::head = List<T>::tail;
-     }else{
-         List<T>::tail->previous_node->next_node = List<T>::tail;
-     }
-
+    if (List<T>::head == nullptr)
+    {
+        List<T>::head = List<T>::tail;
+    }
+    else
+    {
+        List<T>::tail->previous_node->next_node = List<T>::tail;
+    }
 }
 
-template<class T>
-void List<T>::PushFront(T val){
+template <class T>
+void List<T>::PushFront(T val)
+{
     head = new Node<T>(val, nullptr, head);
 
-    if (tail == nullptr){
+    if (tail == nullptr)
+    {
         tail = head;
-    }else{
+    }
+    else
+    {
         head->next_node->previous_node = head;
     }
 }
 
-template<class T> int List<T>::Size() const{
-    int count = 0;
-    Node<T> *tmp = head; // copy head to tmp
-    //Node<T> *tmp(List<T>::head);
-    //std::cout << "tmp addr:" << &tmp <<", head addr: "<< &head << std::endl;
-    std::string rst = "";
-    while(tmp !=nullptr){
-        rst = rst +  std::to_string(tmp->value) +", ";
+// template <class T>
+// int List<T>::Size() const
+// {
+//     int count = 0;
+//     Node<T> *tmp = head; // copy head to tmp
+//     //Node<T> *tmp(List<T>::head);
+//     //std::cout << "tmp addr:" << &tmp <<", head addr: "<< &head << std::endl;
+//     std::string rst = "";
+//     while (tmp != nullptr)
+//     {
+//         rst = rst + std::to_string(tmp->value) + ", ";
+//         tmp = tmp->next_node;
+//         count++;
+//     }
+//     //std::cout << "End tmp val:" << tmp <<", head val: "<<head << std::endl;
+//     std::cout << rst << std::endl;
+//     return count;
+// }
+
+template <class T>
+int List<T>::Size() const
+{
+    Node<T> *tmp = head;
+    int counter = 0;
+    while (tmp != nullptr)
+    {
         tmp = tmp->next_node;
-        count++;
+        counter++;
     }
-    //std::cout << "End tmp val:" << tmp <<", head val: "<<head << std::endl;
-    std::cout << rst << std::endl;
-    return count;
+    return counter;
 }
 
-
-
-template<class T>
-T List<T> :: PopFront(){
+template <class T>
+T List<T>::PopFront()
+{
 
     if (List::Empty())
         throw("Cannot List::PopBack() when List::Empty()");
@@ -141,15 +160,18 @@ T List<T> :: PopFront(){
     Node<T> *tmp = List<T>::head;
     T value = tmp->value;
     //移動head 往右
-    head = head ->next_node;
+    head = head->next_node;
 
     //如果移動到head 還是在某個node上
     //直接把前面的設成null 即可, 反正等下tmp還指著它, 會被del
-    if(head != nullptr){
+    if (head != nullptr)
+    {
         head->previous_node = nullptr;
-    }else{
-    //如果head 移動後現在是 Null, 代表, 剛剛他在tail上
-    //且等下這個tail也會被刪除, 因此, 把tail set to Null
+    }
+    else
+    {
+        //如果head 移動後現在是 Null, 代表, 剛剛他在tail上
+        //且等下這個tail也會被刪除, 因此, 把tail set to Null
         //head at the same place as tail, we del the front
         //which means there are no more node
         tail = nullptr;
@@ -157,11 +179,11 @@ T List<T> :: PopFront(){
 
     delete tmp;
     return value;
-
 }
 
-template<class T>
-T List<T>::PopBack(){
+template <class T>
+T List<T>::PopBack()
+{
 
     if (List::Empty())
         throw("Cannot List::PopBack() when List::Empty()");
@@ -170,44 +192,42 @@ T List<T>::PopBack(){
     T value = tail->value;
     tail = tail->previous_node;
 
-    if (tail != nullptr){
+    if (tail != nullptr)
+    {
         tail->next_node = nullptr;
-    }else{
+    }
+    else
+    {
         head = nullptr;
     }
 
     delete tmp;
     return value;
-
 }
 
+int main()
+{
+    // Sanity test
+    List<int> list1;
 
+    list1.PushBack(9);
+    std::cout << "Size() = " << list1.Size() << std::endl;
+    assert(list1.Size() == 1);
 
+    // Deeper test
+    List<int> list2;
+    list2.PushFront(9);
+    list2.PushBack(10);
+    assert(list2.Size() == 2);
 
-int main() {
-  // Sanity test
-  List<int> list1;
+    list2.PushBack(15);
+    list2.PushFront(2);
+    std::cout << "Size() = " << list2.Size() << std::endl;
 
-  list1.PushBack(9);
-  std::cout << "Size() = " << list1.Size() << std::endl;
-  assert(list1.Size() == 1);
+    assert(list2.PopFront() == 2);
+    std::cout << "list2.PopFront() = " << list2.PopFront() << std::endl;
+    std::cout << "Size() = " << list2.Size() << std::endl;
 
-  // Deeper test
-  List<int> list2;
-  list2.PushFront(9);
-  list2.PushBack(10);
-  assert(list2.Size() == 2);
-
-  list2.PushBack(15);
-  list2.PushFront(2);
-  std::cout << "Size() = " << list2.Size() << std::endl;
-
-  assert(list2.PopFront() == 2);
-  std::cout << "list2.PopFront() = " << list2.PopFront() << std::endl;
-  std::cout << "Size() = " << list2.Size() << std::endl;
-
-
-  assert(list2.PopBack() == 15);
-  assert(list2.Size() == 1);
-
+    assert(list2.PopBack() == 15);
+    assert(list2.Size() == 1);
 }
