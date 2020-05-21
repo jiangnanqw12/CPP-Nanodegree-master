@@ -6,16 +6,18 @@
 // char data type
 // Note: Notice that function doesn't have any return values.
 
-void addSpaces(const char * &str1) {
-    std::cout<<"str1 addrs is: "<< &str1<<std::endl;
+void addSpaces(const char *&str1)
+{
+    std::cout << "str1 addrs is: " << &str1 << std::endl;
 
     // we are declaring new pointer for storage of new spaces (characters)
-    char *temp = new char(sizeof(str1)*2);
+    char *temp = new char(sizeof(str1) * 2);
     // Because we are going to move our input pointer
     // during our modification we need to remember our start address
     char *start = temp;
     // moving our pointer to the end of array of character
-    while(*str1 != '\0'){
+    while (*str1 != '\0')
+    {
         // using pointer arithmetics
         // copying value of str1 to memory location where temp is pointing
         // after that we are moving through array with these two pointers
@@ -29,13 +31,13 @@ void addSpaces(const char * &str1) {
     str1 = start;
 }
 
-
-
-int main() {
+int main()
+{
     std::string str = "Hello World";
-    const char* ptr = str.c_str();
-    std::cout<<"string is: "<<ptr<<std::endl;
-    std::cout<<"string addrs is: "<< &ptr<<std::endl;
+    const char *ptr = str.c_str();
+
+    std::cout << "string is: " << ptr << std::endl;
+    std::cout << "string addrs is: " << &ptr << std::endl;
 
     addSpaces(ptr);
     // Our string has been modified without any return value
@@ -44,7 +46,7 @@ int main() {
     // in this way we are ensuring that all of our changes
     // are going to affect our sent data and not copy input
     // parameters of function
-    std::cout<<"string is: "<<ptr<<std::endl;
+    std::cout << "string is: " << ptr << std::endl;
     return 0;
     /* OUTPUT:
         string is: Hello World
