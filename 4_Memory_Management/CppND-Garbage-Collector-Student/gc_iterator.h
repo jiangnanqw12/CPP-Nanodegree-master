@@ -7,7 +7,6 @@ class OutOfRangeExc
     // Add functionality if needed by your application.
 };
 
-
 // An iterator-like class for cycling through arrays
 // that are pointed to by GCPtrs. Iter pointers
 // ** do not ** participate in or affect garbage
@@ -25,7 +24,7 @@ class Iter
 
     T *begin;        // points to start of allocated array
     unsigned length; // length of sequence
-  public:
+public:
     Iter()
     {
         ptr = end = begin = NULL;
