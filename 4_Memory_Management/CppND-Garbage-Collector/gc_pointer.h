@@ -91,7 +91,7 @@ public:
     {
       _size = 1;
     }
-    return Iter<T>(addr, addr, addr + _size);
+    return Iter<T>(addr, addr, addr + _size); // first is current loc
   }
   // Return an Iter to one past the end of an allocated array.
   Iter<T> end()
