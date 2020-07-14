@@ -2,6 +2,7 @@
 *.osm
 *.o
 *.out
+*.exe
 draw.cpp
 test.cpp
 build/
