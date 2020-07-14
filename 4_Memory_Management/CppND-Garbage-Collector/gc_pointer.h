@@ -138,13 +138,15 @@ Pointer<T, size>::Pointer(T *t)
 
   typename std::list<PtrDetails<T>>::iterator p;
   p = findPtrInfo(t);
-
+  //check the end
   if (p != refContainer.end())
   {
     p->refcount++;
+    //+1
   }
   else
   {
+    //if the computer cannot find the memory block
     PtrDetails<T> obj(t, size);
     refContainer.push_front(obj);
   }
