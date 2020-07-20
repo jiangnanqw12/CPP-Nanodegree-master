@@ -31,11 +31,19 @@ int main()
     // thread barrier
     t.join();
 
-    std::string messageToThread = "test";
+    std::string messageToThread2 = "test";
 
     // create promise and future
     std::promise<std::string> prms2;
     std::future<std::string> ftr2 = prms2.get_future();
+
+    std::thread t2(modifyMessage, std::move(prms2), messageToThread2);
+    std::cout << "Original message from main(): " << messageToThread2 << std::endl;
+
+    // retrieve modified message via future and print to console
+    std::string messageFromThread2 = ftr2.get();
+    std::cout << "Modified message from thread(): " << messageFromThread2 << std::endl;
+    t2.join();
 
     return 0;
 }
