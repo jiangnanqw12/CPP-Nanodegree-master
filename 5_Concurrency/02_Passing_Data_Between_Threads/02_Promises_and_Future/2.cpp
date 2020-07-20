@@ -31,5 +31,11 @@ int main()
     // thread barrier
     t.join();
 
+    std::string messageToThread = "test";
+
+    // create promise and future
+    std::promise<std::string> prms2;
+    std::future<std::string> ftr2 = prms2.get_future();
+
     return 0;
 }
