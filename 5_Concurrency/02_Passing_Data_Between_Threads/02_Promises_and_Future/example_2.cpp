@@ -2,10 +2,10 @@
 #include <thread>
 #include <future>
 
-void modifyMessage(std::promise<std::string> && prms, std::string message)
+void modifyMessage(std::promise<std::string> &&prms, std::string message)
 {
     std::this_thread::sleep_for(std::chrono::milliseconds(4000)); // simulate work
-    std::string modifiedMessage = message + " has been modified"; 
+    std::string modifiedMessage = message + " has been modified";
     prms.set_value(modifiedMessage);
 }
 
