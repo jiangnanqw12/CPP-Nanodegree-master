@@ -14,7 +14,6 @@ double divideByNumber(double num, double denom)
     return num / denom;
 }
 
-
 int main()
 {
     // use async to start a task

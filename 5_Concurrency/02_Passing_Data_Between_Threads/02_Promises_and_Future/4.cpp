@@ -6,9 +6,21 @@
 
 void divideByNumber(std::promise<double> &&prms, double num, double denom)
 {
+    std::this_thread::sleep_for(std::chrono::milliseconds(500));
     try
     {
-        if
+        if (denom == 0.0)
+        {
+            throw std::runtime_error("0111");
+        }
+        else
+        {
+            prms.set_value(num / denom);
+        }
+    }
+    catch (...)
+    {
+        prms.set_exception(std::current_exception());
     }
 }
 
@@ -23,6 +35,7 @@ int main()
     std::thread t(divideByNumber, std::move(prms), num, denom);
 
     // retrieve result within try-catch-block
+    double result = ftr.get();
     try
     {
 
